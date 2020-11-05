@@ -1,0 +1,6 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =4
+let g:netrw_dirhist_4='/Users/jonathan/Documents/School/MTH-261/Focus Sets/2'
+let g:netrw_dirhist_3='/Users/jonathan/Documents/Xcode/COpenSSL'
+let g:netrw_dirhist_2='/Users/jonathan/Documents/Xcode'
+let g:netrw_dirhist_1='/Users/jonathan/Documents/Xcode/COpenSSL'

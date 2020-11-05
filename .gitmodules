@@ -1,0 +1,6 @@
+[submodule "vim/pack/plugins/start/vim-fish"]
+	path = vim/pack/plugins/start/vim-fish
+	url = https://github.com/dag/vim-fish
+[submodule "vim/pack/plugins/start/rust.vim"]
+	path = vim/pack/plugins/start/rust.vim
+	url = https://github.com/rust-lang/rust.vim
