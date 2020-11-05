@@ -11,7 +11,7 @@ alias qcpi="ssh pi@192.168.1.76"
 alias swiftpi="ssh pi@192.168.1.77"
 #alias rpi="ssh pi@76.14.235.124"
 alias rpi="ssh pi@direct.nobodynada.com"
-alias git=hub
+command -v hub > /dev/null; and alias git=hub
 alias ffrecv="ffplay tcp://192.168.1.222:9000"
 alias http="curlie"
 alias https="http --ssl"
@@ -35,7 +35,7 @@ if test -d /opt/devkitpro
     set -x PATH $PATH $DEVKITPRO/tools/bin $DEVKITPRO/devkitPPC/bin $DEVKITPRO/devkitARM/bin 
 end
 
-set -x JAVA_HOME (/usr/libexec/java_home -v 1.8)
+[ (uname) = Darwin ]; and set -x JAVA_HOME (/usr/libexec/java_home -v 1.8)
 
 set -x SWIFTENV_ROOT $HOME/.swiftenv
 set -x PATH $SWIFTENV_ROOT/bin $PATH
