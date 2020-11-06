@@ -1,3 +1,4 @@
+set -x PATH $HOME/bin $HOME/.bin $PATH
 set -x EDITOR vim
 alias ls="ls -G"
 alias xcodeclean='rm -rf ~/Library/Developer/Xcode/DerivedData/* && rm -rf ~/Library/Caches/com.apple.dt.Xcode'
