@@ -4,7 +4,7 @@ endif
 
 set scrolloff=4 backspace=indent,eol,start
 set shiftwidth=4 tabstop=4 expandtab autoindent smartindent
-set splitright
+set splitright splitbelow
 if system("uname -s") == "Darwin\n"
     set clipboard=unnamed
 else
