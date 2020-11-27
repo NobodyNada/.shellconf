@@ -47,4 +47,4 @@ status --is-interactive; and exists pyenv; and source (pyenv init -|psub)
 set -x PATH $PATH $HOME/go/bin
 
 set -x PATH $HOME/.cargo/bin $PATH
-exists rvm; and rvm default
+command -q rvm; and rvm default
