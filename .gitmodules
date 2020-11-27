@@ -4,3 +4,6 @@
 [submodule "vim/pack/plugins/start/rust.vim"]
 	path = vim/pack/plugins/start/rust.vim
 	url = https://github.com/rust-lang/rust.vim
+[submodule "vim/pack/plugins/start/vim-asm_ca65"]
+	path = vim/pack/plugins/start/vim-asm_ca65
+	url = https://github.com/maxbane/vim-asm_ca65

@@ -40,11 +40,11 @@ end
 
 set -x SWIFTENV_ROOT $HOME/.swiftenv
 set -x PATH $SWIFTENV_ROOT/bin $PATH
-command -v swiftenv > /dev/null; and source (swiftenv init - | psub)
+exists swiftenv; and source (swiftenv init - | psub)
 
-command -v pyenv > /dev/null; and status --is-interactive; and source (pyenv init -|psub)
+status --is-interactive; and exists pyenv; and source (pyenv init -|psub)
 
 set -x PATH $PATH $HOME/go/bin
 
 set -x PATH $HOME/.cargo/bin $PATH
-command -v rvm > /dev/null; and rvm default
+exists rvm; and rvm default
