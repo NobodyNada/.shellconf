@@ -48,3 +48,5 @@ set -x PATH $PATH $HOME/go/bin
 
 set -x PATH $HOME/.cargo/bin $PATH
 command -q rvm; and rvm default
+
+set -x RUST_BACKTRACE 1

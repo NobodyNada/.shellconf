@@ -17,47 +17,78 @@ map ; :
 filetype plugin indent on
 augroup filetypedetect
     au BufNewFile,BufRead *.s,*.inc set ft=asm_ca65
+    au BufRead,BufNewFile *.handlebars set ft=html
 augroup END
+au Filetype html set shiftwidth=2 tabstop=2
+
+" Automatically insert closing "{"
+inoremap { {}<left>
 
 call plug#begin('~/.vim/plugged')
 Plug 'dag/vim-fish'
 Plug 'rust-lang/rust.vim'
 Plug 'maxbane/vim-asm_ca65'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'mattn/vim-lsp-settings'
+Plug 'neoclide/coc.nvim'
+Plug 'Raimondi/delimitMate'
 call plug#end()
 
-"if executable('clangd')
-"    au User lsp_setup call lsp#register_server({
-"    \ 'name': 'clangd',
-"    \ 'cmd': {server_info->['clangd', '-background-index']},
-"    \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp']
-"    \ })
-"endif
+highlight Pmenu ctermfg=cyan ctermbg=black
+highlight CocErrorHighlight ctermfg=white ctermbg=red
+highlight CocWarningHighlight ctermfg=yellow cterm=bold,underline
+highlight CocErrorFloat ctermfg=red cterm=bold
+highlight CocWarningFloat ctermfg=yellow cterm=bold
 
+set updatetime=300
+set signcolumn=number
 
-function! s:on_lsp_buffer_enabled() abort
-    setlocal omnifunc=lsp#complete
-    "setlocal signcolumn=yes
-    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
-    nmap <buffer> gd <plug>(lsp-definition)
-    nmap <buffer> gr <plug>(lsp-references)
-    nmap <buffer> gi <plug>(lsp-implementation)
-    nmap <buffer> gt <plug>(lsp-type-definition)
-    nmap <buffer> <leader>rn <plug>(lsp-rename)
-    nmap <buffer> [g <Plug>(lsp-previous-diagnostic)
-    nmap <buffer> ]g <Plug>(lsp-next-diagnostic)
-    nmap <buffer> K <plug>(lsp-hover)
-    
-    " refer to doc to add more commands
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-let g:lsp_signs_enabled = 0
-let g:lsp_diagnostics_echo_cursor = 1
-let g:lsp_diagnostics_echo_delay = 0
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 
-augroup lsp_install
-    au!
-    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
-    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-augroup END
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+
+" delimitMate: recognize <> pairs only in HTML mode
+let delimitMate_matchpairs = "(:),[:],{:}"
+au FileType html let b:delimitMate_matchpairs = "(:),[:],{:},<:>"

@@ -1,0 +1,10 @@
+{
+    "diagnostic.enableSign": false,
+    "diagnostic.messageDelay": 0,
+    "diagnostic.checkCurrentLine": true,
+    "diagnostic.refreshOnInsertMode": false,
+
+    "rust-analyzer.cargo.loadOutDirsFromCheck": true,
+    "rust-analyzer.procMacro.enable": true,
+    "rust-analyzer.checkOnSave.command": "clippy"
+}
