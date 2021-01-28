@@ -14,7 +14,7 @@ alias swiftpi="ssh pi@192.168.1.77"
 alias rpi="ssh pi@direct.nobodynada.com"
 command -v hub > /dev/null; and alias git=hub
 alias ffrecv="ffplay tcp://192.168.1.222:9000"
-alias http="curlie"
+#/alias http="curlie"
 alias https="http --ssl"
 alias vscode="open -a 'Visual Studio Code'"
 alias firefox='/Applications/Firefox.app/Contents/MacOS/firefox'
@@ -36,7 +36,7 @@ if test -d /opt/devkitpro
     set -x PATH $PATH $DEVKITPRO/tools/bin $DEVKITPRO/devkitPPC/bin $DEVKITPRO/devkitARM/bin 
 end
 
-[ (uname) = Darwin ]; and set -x JAVA_HOME (/usr/libexec/java_home -v 1.8)
+[ (uname) = Darwin ]; and set -x JAVA_HOME (/usr/libexec/java_home -v 11.0)
 
 set -x SWIFTENV_ROOT $HOME/.swiftenv
 set -x PATH $SWIFTENV_ROOT/bin $PATH
@@ -44,6 +44,7 @@ exists swiftenv; and source (swiftenv init - | psub)
 
 status --is-interactive; and exists pyenv; and source (pyenv init -|psub)
 
+set -x PATH /usr/local/opt/perl/bin $PATH
 set -x PATH $PATH $HOME/go/bin
 
 set -x PATH $HOME/.cargo/bin $PATH

@@ -4,21 +4,18 @@ endif
 
 set scrolloff=4 backspace=indent,eol,start
 set shiftwidth=4 tabstop=4 expandtab autoindent smartindent
-if system("uname -s") == "Linux\n"
+if has('linux')
     set clipboard=unnamedplus
 else
     set clipboard=unnamed
 endif
 syntax on
 autocmd BufWritePost src.md silent !./render.sh
+autocmd BufWritePost *.cho silent !bash -c 'chordpro % 2>/dev/null'
 autocmd Filetype gitcommit set textwidth=72
 map ; :
 
 filetype plugin indent on
-augroup filetypedetect
-    au BufNewFile,BufRead *.s,*.inc set ft=asm_ca65
-    au BufRead,BufNewFile *.handlebars set ft=html
-augroup END
 au Filetype html set shiftwidth=2 tabstop=2
 
 " Automatically insert closing "{"
@@ -39,7 +36,7 @@ highlight CocErrorFloat ctermfg=red cterm=bold
 highlight CocWarningFloat ctermfg=yellow cterm=bold
 
 set updatetime=300
-set signcolumn=number
+"set signcolumn=number
 
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
