@@ -23,6 +23,13 @@ tmap <C-w>; <C-w>:
 tnoremap <C-w><C-w> <C-w>w
 tnoremap <C-e> <C-w>:<C-u>WinResizerStartResize<cr>
 
+set incsearch
+augroup vimrc-incsearch-highlight
+  autocmd!
+  autocmd CmdlineEnter /,\? :set hlsearch
+  autocmd CmdlineLeave /,\? :set nohlsearch
+augroup END
+
 map <SPACE> <leader>
 
 filetype plugin indent on
