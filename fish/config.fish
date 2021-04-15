@@ -50,4 +50,6 @@ set -x PATH $PATH $HOME/go/bin
 set -x PATH $HOME/.cargo/bin $PATH
 command -q rvm; and rvm default
 
+exists hub; and alias git=hub
+
 set -x RUST_BACKTRACE 1
