@@ -36,7 +36,9 @@ if test -d /opt/devkitpro
     set -x PATH $PATH $DEVKITPRO/tools/bin $DEVKITPRO/devkitPPC/bin $DEVKITPRO/devkitARM/bin 
 end
 
-[ (uname) = Darwin ]; and set -x JAVA_HOME (/usr/libexec/java_home -v 11.0)
+[ (uname) = Darwin ]; and set -x DARWIN 1
+
+set -q DARWIN; and set -x JAVA_HOME (/usr/libexec/java_home -v 11.0)
 
 set -x SWIFTENV_ROOT $HOME/.swiftenv
 set -x PATH $SWIFTENV_ROOT/bin $PATH
