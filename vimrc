@@ -79,6 +79,15 @@ if (has("autocmd"))
 endif
 colorscheme onedark
 
+let s:cached_git_status=""
+function! CachedGitStatus()
+    if empty(s:cached_git_status)
+        let s:cached_git_status=FugitiveHead()
+    end
+    return s:cached_git_status
+endfunction
+autocmd User FugitiveChanged let s:cached_git_status=""
+
 let g:lightline = {
       \ 'colorscheme': 'onedark',
       \ 'active': {
@@ -87,7 +96,7 @@ let g:lightline = {
       \ },
       \ 'component_function': {
       \   'cocstatus': 'coc#status',
-      \   'gitbranch': 'FugitiveHead'
+      \   'gitbranch': 'CachedGitStatus'
       \ },
       \ }
 
