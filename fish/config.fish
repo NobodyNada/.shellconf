@@ -51,5 +51,6 @@ set -x PATH $HOME/.cargo/bin $PATH
 command -q rvm; and rvm default
 
 exists hub; and alias git=hub
+exists vim; and alias vi=vim
 
 set -x RUST_BACKTRACE 1
