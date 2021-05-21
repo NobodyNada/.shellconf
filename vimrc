@@ -2,8 +2,10 @@ if &shell =~# 'fish$'
 "    set shell=zsh
 endif
 
+set shiftwidth=4 tabstop=4 softtabstop=4 expandtab autoindent smartindent
+au Filetype html set shiftwidth=2 tabstop=2 softtabstop=2
+
 set scrolloff=4 backspace=indent,eol,start
-set shiftwidth=4 tabstop=4 expandtab autoindent smartindent
 set ignorecase smartcase
 set laststatus=2
 set number
@@ -33,7 +35,6 @@ augroup END
 map <SPACE> <leader>
 
 filetype plugin indent on
-au Filetype html set shiftwidth=2 tabstop=2
 
 call plug#begin('~/.vim/plugged')
 Plug 'dag/vim-fish'
