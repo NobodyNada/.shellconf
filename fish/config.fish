@@ -1,6 +1,5 @@
 set -x PATH $HOME/bin $HOME/.bin $PATH
 set -x EDITOR vim
-alias ls="ls -G"
 alias xcodeclean='rm -rf ~/Library/Developer/Xcode/DerivedData/* && rm -rf ~/Library/Caches/com.apple.dt.Xcode'
 if test -f ~/.homebrewtoken
     export HOMEBREW_GITHUB_API_TOKEN=(cat ~/.homebrewtoken)
@@ -39,6 +38,8 @@ end
 [ (uname) = Darwin ]; and set -x DARWIN 1
 
 set -q DARWIN; and set -x JAVA_HOME (/usr/libexec/java_home -v 11.0)
+
+set -q DARWIN; and alias ls="ls -G"; or alias ls="ls --color=auto"
 
 set -x SWIFTENV_ROOT $HOME/.swiftenv
 set -x PATH $SWIFTENV_ROOT/bin $PATH
