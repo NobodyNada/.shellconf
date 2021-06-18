@@ -26,6 +26,7 @@ alias g=git
 #alias ol='_l && open ~/Desktop/logs'
 #alias r='ssh lvuser@10.14.25.2'
 alias s='firefox -search'
+[ $UNAME = Darwin ]; and alias ls="ls -G"; or alias ls="ls --color=auto"
 
 if test -d /opt/devkitpro
     set -x DEVKITPRO /opt/devkitpro
@@ -33,10 +34,11 @@ if test -d /opt/devkitpro
     set -x DEVKITPPC $DEVKITPRO/devkitPPC
     set -x PATH $PATH $DEVKITPRO/tools/bin $DEVKITPRO/devkitPPC/bin $DEVKITPRO/devkitARM/bin 
 end
+if test -d /usr/local/opt/util-linux
+    set -x PATH $PATH /usr/local/opt/util-linux/bin /usr/local/opt/util-linux/sbin
+end
 
 [ $UNAME = Darwin ]; and set -x JAVA_HOME (/usr/libexec/java_home -v 11.0)
-
-set -q DARWIN; and alias ls="ls -G"; or alias ls="ls --color=auto"
 
 set -x SWIFTENV_ROOT $HOME/.swiftenv
 set -x PATH $SWIFTENV_ROOT/bin $PATH
@@ -59,3 +61,4 @@ exists vim; and begin; alias vi=vim; set -x EDITOR vim; end
 exists nvim; and begin; alias vim=nvim; set -x EDITOR nvim; end
 
 set -x RUST_BACKTRACE 1
+fish_add_path /usr/local/sbin
