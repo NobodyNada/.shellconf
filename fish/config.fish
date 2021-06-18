@@ -42,7 +42,10 @@ set -x SWIFTENV_ROOT $HOME/.swiftenv
 set -x PATH $SWIFTENV_ROOT/bin $PATH
 exists swiftenv; and source (swiftenv init - | psub)
 
-status --is-interactive; and exists pyenv; and source (pyenv init -|psub)
+if exists pyenv
+    status is-login; and pyenv init --path | source
+    pyenv init - | source
+end
 
 set -x PATH /usr/local/opt/perl/bin $PATH
 set -x PATH $PATH $HOME/go/bin
