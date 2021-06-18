@@ -5,9 +5,10 @@ endif
 set shiftwidth=4 tabstop=4 softtabstop=4 expandtab autoindent smartindent
 au Filetype html set shiftwidth=2 tabstop=2 softtabstop=2
 
+set autochdir
 set scrolloff=4 backspace=indent,eol,start
 set ignorecase smartcase
-set laststatus=2
+set laststatus=2 noshowmode
 set number
 if has('linux')
     set clipboard=unnamedplus
@@ -22,14 +23,14 @@ map ; :
 map <C-w>; <C-w>:
 tmap <C-w>; <C-w>:
 " https://vi.stackexchange.com/a/24983/13011
-tnoremap <C-w><C-w> <C-w>w
-tnoremap <C-e> <C-w>:<C-u>WinResizerStartResize<cr>
+tmap <C-w><C-w> <C-w>w
+tmap <C-e> <C-w>:<C-u>WinResizerStartResize<cr>
 
 set incsearch nohlsearch
 augroup vimrc-incsearch-highlight
   autocmd!
   autocmd CmdlineEnter /,\? :set hlsearch
-  autocmd CmdlineLeave /,\? :set nohlsearch
+  autocmd CmdlineLeave * :set nohlsearch
 augroup END
 
 map <SPACE> <leader>
@@ -60,15 +61,18 @@ endif
 let g:onedark_terminal_italics = 1
 
 let g:onedark_color_overrides = {
+            \ "white": {"gui": "#d0d0d0", "cterm": "251", "cterm16": "7" },
             \ "black": {"gui": "#000000", "cterm": "0", "cterm16": "0"},
             \ "red": { "gui": "#ff0087", "cterm": "198", "cterm16": "1" },
-            \ "comment_grey": { "gui": "#ff0087", "cterm": "109", "cterm16": "1" }
+            \ "comment_grey": { "gui": "#ff0087", "cterm": "109", "cterm16": "1" },
       \ }
 
 function! s:extend_highlights()
     call onedark#set_highlight("Identifier", {"fg": s:colors.purple, "gui": "bold", "cterm": "bold"})
     call onedark#set_highlight("StorageClass", {"fg": s:colors.yellow, "gui": "italic", "cterm": "italic"})
     call onedark#set_highlight("Conditional", {"fg": s:colors.purple, "gui": "bold", "cterm": "bold"})
+    call onedark#set_highlight("CocRustTypeHint",     {"fg": { "gui": "#808080", "cterm": "244", "cterm16": "8" }})
+    call onedark#set_highlight("CocRustChainingHint", {"fg": { "gui": "#808080", "cterm": "244", "cterm16": "8" }})
 endfunction
 
 if (has("autocmd"))

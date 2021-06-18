@@ -8,8 +8,10 @@
     "coc.preferences.formatOnTypeFiletypes": ["rust"],
     "coc.preferences.formatOnSaveFiletypes": ["rust"],
 
-    "rust-analyzer.cargo.loadOutDirsFromCheck": true,
+    "rust-analyzer.cargo.runBuildScripts": true,
     "rust-analyzer.procMacro.enable": true,
     "rust-analyzer.checkOnSave.command": "clippy",
-    "rust-analyzer.diagnostics.disabled": ["macro-error"]
+    "rust-analyzer.diagnostics.disabled": ["macro-error"],
+
+    "rust-analyzer.inlayHints.typeHints": false,
 }
