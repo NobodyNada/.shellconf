@@ -1,4 +1,4 @@
-if string match -q 'CYGWIN' (uname -s) 
+if string match -q 'CYGWIN*' $UNAME
     function pbcopy
         putclip
     end
