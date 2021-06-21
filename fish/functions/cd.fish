@@ -8,8 +8,8 @@ function cd
         set -l arg (string split -m 1 / "$argv")
 
         # get last path components of tagged directories
-        set -l tagged (set -q DARWIN; and tag -f '*')
-        set -l basenames ([ $DARWIN = 1]; and echo $tagged | xargs basename -a)
+        set -l tagged ([ $UNAME = Darwin ]; and tag -f '*')
+        set -l basenames ([ $UNAME = Darwin ]; and echo $tagged | xargs basename -a)
 
         # is there a match?
         if set -l index (contains -i "$arg[1]" $basenames)
@@ -22,8 +22,8 @@ function cd
 end
 
 function cd_tags_completions
-    set -l tagged (set -q DARWIN; and tag -f '*')
-    set -l basenames (set -q DARWIN; and echo $tagged | xargs basename -a)
+    set -l tagged ([ $UNAME = Darwin ]; and tag -f '*')
+    set -l basenames ([ $UNAME = Darwin ]; and echo $tagged | xargs basename -a)
     printf '%s/\n' $basenames # add tagged directories to the completion list
 
     # if the user has typed a tagged directory as the base path, also add matching subdirectories

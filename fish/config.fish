@@ -35,9 +35,7 @@ if test -d /opt/devkitpro
     set -x PATH $PATH $DEVKITPRO/tools/bin $DEVKITPRO/devkitPPC/bin $DEVKITPRO/devkitARM/bin 
 end
 
-[ (uname) = Darwin ]; and set -x DARWIN 1
-
-set -q DARWIN; and set -x JAVA_HOME (/usr/libexec/java_home -v 11.0)
+[ $UNAME = Darwin ]; and set -x JAVA_HOME (/usr/libexec/java_home -v 11.0)
 
 set -q DARWIN; and alias ls="ls -G"; or alias ls="ls --color=auto"
 
