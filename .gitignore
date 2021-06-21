@@ -2,3 +2,5 @@
 /vim/.netrwhist
 /vim/plugged
 /vim/spell/
+
+/fish/conf.d/host_*.fish
