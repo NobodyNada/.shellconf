@@ -4,3 +4,4 @@
 /vim/spell/
 
 /fish/conf.d/host_*.fish
+/fish/conf.d/000host_*.fish
