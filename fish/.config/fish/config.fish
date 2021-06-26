@@ -27,6 +27,7 @@ alias g=git
 #alias r='ssh lvuser@10.14.25.2'
 alias s='firefox -search'
 [ $UNAME = Darwin ]; and alias ls="ls -G"; or alias ls="ls --color=auto"
+[ $UNAME = Darwin ]; and set -x LSCOLORS Exfxdxdxbxegedabagacad
 
 if test -d /opt/devkitpro
     set -x DEVKITPRO /opt/devkitpro
