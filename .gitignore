@@ -1,7 +1,7 @@
 .*.swp
-/vim/.netrwhist
-/vim/plugged
-/vim/spell/
+/vim/.vim/.netrwhist
+/vim/.vim/plugged
+/vim/.vim/spell/
 
-/fish/conf.d/host_*.fish
-/fish/conf.d/000host_*.fish
+/fish/.config/fish/conf.d/host_*.fish
+/fish/.config/fish/conf.d/000host_*.fish
