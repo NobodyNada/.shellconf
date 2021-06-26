@@ -9,22 +9,22 @@ set -g fish_key_bindings key_bindings
 function fish_mode_prompt
   switch $fish_bind_mode
     case default
-      set_color --bold brred
+      set_color --bold brgreen
       echo 'N'
     case insert
-      set_color --bold brgreen
+      set_color --bold 0087ff
       echo 'I'
     case replace_one
-      set_color --bold blue
-      echo 'R'
+      set_color --bold brred
+      echo 'r'
     case replace
-      set_color --bold brcyan
+      set_color --bold brred
       echo 'R'
     case visual
       set_color --bold brmagenta
       echo 'V'
     case '*'
-      set_color --bold red
+      set_color --bold white
       echo '?'
   end
   set_color normal
