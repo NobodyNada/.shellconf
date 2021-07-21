@@ -63,6 +63,7 @@ let g:onedark_terminal_italics = 1
 let g:onedark_color_overrides = {
             \ "white": {"gui": "#d0d0d0", "cterm": "251", "cterm16": "7" },
             \ "black": {"gui": "#000000", "cterm": "0", "cterm16": "0"},
+            \ "background": {"gui": "#000000", "cterm": "0", "cterm16": "0"},
             \ "red": { "gui": "#ff0087", "cterm": "198", "cterm16": "1" },
             \ "comment_grey": { "gui": "#ff0087", "cterm": "109", "cterm16": "1" },
       \ }
