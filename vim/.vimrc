@@ -17,7 +17,7 @@ else
 endif
 syntax on
 autocmd BufWritePost src.md silent !./render.sh
-autocmd BufWritePost *.cho silent !bash -c 'chordpro % 2>/dev/null'
+autocmd BufWritePost *.cho !bash -c "chordpro %:S 2>/dev/null"
 autocmd Filetype gitcommit set textwidth=72
 map ; :
 map <C-w>; <C-w>:
