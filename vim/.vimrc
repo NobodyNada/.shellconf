@@ -33,6 +33,15 @@ augroup vimrc-incsearch-highlight
   autocmd CmdlineLeave * :set nohlsearch
 augroup END
 
+" smart relativenumber https://jeffkreeftmeijer.com/vim-number/
+:set number
+
+:augroup numbertoggle
+:  autocmd!
+:  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
+:  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
+:augroup END
+
 map <SPACE> <leader>
 
 filetype plugin indent on
@@ -66,6 +75,7 @@ let g:onedark_color_overrides = {
             \ "background": {"gui": "#000000", "cterm": "0", "cterm16": "0"},
             \ "red": { "gui": "#ff0087", "cterm": "198", "cterm16": "1" },
             \ "comment_grey": { "gui": "#ff0087", "cterm": "109", "cterm16": "1" },
+            \ "cursor_grey": {"gui": "#121212", "cterm": "233", "cterm16": "0"},
       \ }
 
 function! s:extend_highlights()
@@ -84,6 +94,7 @@ if (has("autocmd"))
     augroup END
 endif
 colorscheme onedark
+set cursorline
 
 let s:cached_git_status=""
 function! CachedGitStatus()
