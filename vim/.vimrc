@@ -38,8 +38,8 @@ augroup END
 
 :augroup numbertoggle
 :  autocmd!
-:  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
-:  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
+:  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu cursorline     | endif
+:  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu nocursorline | endif
 :augroup END
 
 map <SPACE> <leader>
@@ -94,7 +94,6 @@ if (has("autocmd"))
     augroup END
 endif
 colorscheme onedark
-set cursorline
 
 let s:cached_git_status=""
 function! CachedGitStatus()
