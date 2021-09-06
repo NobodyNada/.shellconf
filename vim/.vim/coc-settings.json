@@ -11,7 +11,7 @@
     "rust-analyzer.cargo.runBuildScripts": true,
     "rust-analyzer.procMacro.enable": true,
     "rust-analyzer.checkOnSave.command": "clippy",
-    "rust-analyzer.diagnostics.disabled": ["macro-error"],
+    "rust-analyzer.diagnostics.enable": false,
 
     "rust-analyzer.inlayHints.typeHints": false,
 }
