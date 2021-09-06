@@ -14,6 +14,7 @@ if has('linux')
 else
     set clipboard=unnamed
 endif
+filetype plugin indent on
 syntax on
 autocmd BufWritePost src.md silent !./render.sh
 autocmd BufWritePost *.cho !bash -c "chordpro %:S 2>/dev/null"
@@ -43,8 +44,6 @@ augroup END
 
 map <SPACE> <leader>
 
-filetype plugin indent on
-
 call plug#begin('~/.vim/plugged')
 Plug 'dag/vim-fish'
 Plug 'rust-lang/rust.vim'
@@ -58,6 +57,7 @@ Plug 'joshdick/onedark.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'itchyny/lightline.vim'
 Plug 'airblade/vim-gitgutter'
+Plug 'Shirk/vim-gas'
 call plug#end()
 
 " mac terminal supports bold/italics, but doesn't declare it
