@@ -54,7 +54,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'dag/vim-fish'
 Plug 'rust-lang/rust.vim'
 Plug 'maxbane/vim-asm_ca65'
-Plug 'neoclide/coc.nvim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'Raimondi/delimitMate'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
