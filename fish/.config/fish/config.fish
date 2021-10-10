@@ -40,7 +40,7 @@ if test -d /usr/local/opt/util-linux
     set -x PATH $PATH /usr/local/opt/util-linux/bin /usr/local/opt/util-linux/sbin
 end
 
-[ $UNAME = Darwin ]; and set -x JAVA_HOME (/usr/libexec/java_home -v 11.0)
+[ $UNAME = Darwin ]; and set -x JAVA_HOME (/usr/libexec/java_home)
 
 set -x SWIFTENV_ROOT $HOME/.swiftenv
 set -x PATH $SWIFTENV_ROOT/bin $PATH
