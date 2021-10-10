@@ -45,6 +45,11 @@ augroup END
 
 map <SPACE> <leader>
 
+nmap <Leader>r  <Plug>ReplaceWithRegisterOperator
+nmap <Leader>rr <Plug>ReplaceWithRegisterLine
+nmap <Leader>R <Leader>r$
+xmap <Leader>r  <Plug>ReplaceWithRegisterVisual
+
 call plug#begin('~/.vim/plugged')
 Plug 'dag/vim-fish'
 Plug 'rust-lang/rust.vim'
@@ -59,6 +64,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'itchyny/lightline.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'Shirk/vim-gas'
+Plug 'inkarkat/vim-ReplaceWithRegister'
 call plug#end()
 
 " mac terminal supports bold/italics, but doesn't declare it
