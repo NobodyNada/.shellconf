@@ -59,7 +59,7 @@ command -q rvm; and rvm default
 
 exists hub; and alias git=hub
 alias v=vi; set -x EDITOR vi
-exists vim; and begin; alias vi=vim; set -x EDITOR vim; end
+exists vim or exists nvim; and begin; alias vi=vim; set -x EDITOR vim; end
 exists nvim; and begin; alias vim=nvim; set -x EDITOR nvim; end
 
 set -x RUST_BACKTRACE 1
