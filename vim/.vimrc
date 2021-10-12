@@ -65,6 +65,9 @@ Plug 'itchyny/lightline.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'Shirk/vim-gas'
 Plug 'inkarkat/vim-ReplaceWithRegister'
+if has('python3')
+    Plug 'vimsence/vimsence'
+end
 call plug#end()
 
 " mac terminal supports bold/italics, but doesn't declare it
@@ -207,3 +210,8 @@ nnoremap <silent><nowait> <Leader>b :Buffers<cr>
 " delimitMate: recognize <> pairs only in HTML mode
 let delimitMate_matchpairs = "(:),[:],{:}"
 au FileType html let b:delimitMate_matchpairs = "(:),[:],{:},<:>"
+
+if has('nvim')
+    let g:vimsence_small_text = 'Neovim'
+    let g:vimsence_small_image = 'neovim'
+end
