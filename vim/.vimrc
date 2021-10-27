@@ -50,6 +50,8 @@ nmap <Leader>rr <Plug>ReplaceWithRegisterLine
 nmap <Leader>R <Leader>r$
 xmap <Leader>r  <Plug>ReplaceWithRegisterVisual
 
+let g:pandoc#filetypes#pandoc_markdown = 0
+
 call plug#begin('~/.vim/plugged')
 Plug 'dag/vim-fish'
 Plug 'rust-lang/rust.vim'
@@ -65,6 +67,8 @@ Plug 'itchyny/lightline.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'Shirk/vim-gas'
 Plug 'inkarkat/vim-ReplaceWithRegister'
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
 if has('python3')
     Plug 'vimsence/vimsence'
 end
@@ -215,3 +219,5 @@ if has('nvim')
     let g:vimsence_small_text = 'Neovim'
     let g:vimsence_small_image = 'neovim'
 end
+
+let g:pandoc#modules#disabled = ["folding"]
