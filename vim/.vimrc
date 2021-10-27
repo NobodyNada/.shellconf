@@ -2,7 +2,7 @@ if &shell =~# 'fish$'
 "    set shell=zsh
 endif
 
-set shiftwidth=4 tabstop=4 softtabstop=4 expandtab autoindent smartindent
+set shiftwidth=4 tabstop=4 softtabstop=4 expandtab autoindent smartindent title
 au Filetype html set shiftwidth=2 tabstop=2 softtabstop=2
 
 set scrolloff=4 backspace=indent,eol,start
