@@ -2,6 +2,7 @@ if &shell =~# 'fish$'
 "    set shell=zsh
 endif
 
+let &titlestring = "%t %m"
 set shiftwidth=4 tabstop=4 softtabstop=4 expandtab autoindent smartindent title
 au Filetype html set shiftwidth=2 tabstop=2 softtabstop=2
 
