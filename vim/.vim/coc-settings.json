@@ -1,5 +1,4 @@
 {
-    "diagnostic.enableSign": false,
     "diagnostic.messageDelay": 0,
     "diagnostic.checkCurrentLine": true,
     "diagnostic.refreshOnInsertMode": false,

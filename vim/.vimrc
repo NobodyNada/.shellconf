@@ -137,7 +137,7 @@ highlight CocErrorFloat ctermfg=red cterm=bold
 highlight CocWarningFloat ctermfg=yellow cterm=bold
 
 set updatetime=300
-"set signcolumn=number
+set signcolumn=number
 
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
