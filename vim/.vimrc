@@ -70,6 +70,7 @@ Plug 'Shirk/vim-gas'
 Plug 'inkarkat/vim-ReplaceWithRegister'
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
+Plug 'tpope/vim-abolish'
 if has('python3')
     Plug 'vimsence/vimsence'
 end
