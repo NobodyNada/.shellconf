@@ -18,6 +18,7 @@ filetype plugin indent on
 syntax on
 autocmd BufWritePost src.md silent !./render.sh
 autocmd BufWritePost *.cho !bash -c "chordpro %:S 2>/dev/null"
+autocmd BufNewFile *.hw 0r ~/.vim/templates/template.hw
 autocmd Filetype gitcommit set textwidth=72
 map ; :
 map <C-w>; <C-w>:

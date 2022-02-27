@@ -30,10 +30,11 @@ async def websocket(request):
     ws_clients.remove(ws)
 
 
-async def run():
+async def run(dir):
     app = web.Application()
     app.router.add_route('GET', '/', index)
     app.router.add_route('GET', '/ws', websocket)
+    app.router.add_static('/', dir)
     runner = web.AppRunner(app)
     await runner.setup()
     site = web.TCPSite(runner, 'localhost', 0)
@@ -50,7 +51,7 @@ async def run():
 def main():
     global buffer_contents
     buffer_contents = "\n".join(vim.current.buffer[:])
-    asyncio.ensure_future(run())
+    asyncio.ensure_future(run(vim.eval('expand("%:h")')))
 
 def refresh():
     global buffer_contents
