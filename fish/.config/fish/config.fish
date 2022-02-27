@@ -13,7 +13,6 @@ alias rpi="ssh pi@direct.nobodynada.com"
 command -v hub > /dev/null; and alias git=hub
 alias ffrecv="ffplay tcp://192.168.1.222:9000"
 #/alias http="curlie"
-alias https="http --ssl"
 alias vscode="open -a 'Visual Studio Code'"
 alias firefox='/Applications/Firefox.app/Contents/MacOS/firefox'
 #eval (docker-machine env)
