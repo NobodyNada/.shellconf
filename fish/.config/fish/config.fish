@@ -63,3 +63,5 @@ exists nvim; and begin; alias vim=nvim; set -x EDITOR nvim; end
 
 set -x RUST_BACKTRACE 1
 fish_add_path /usr/local/sbin
+
+fzf_configure_bindings --directory=\cf --git_status=\cs
