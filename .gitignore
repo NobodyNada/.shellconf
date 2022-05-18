@@ -5,4 +5,6 @@
 
 /fish/.config/fish/conf.d/host_*.fish
 /fish/.config/fish/conf.d/000host_*.fish
+fish/.config/fish/functions/_*
+fish/.config/fish/fish_variables*
 __pycache__
