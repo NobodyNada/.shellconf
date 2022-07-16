@@ -41,6 +41,7 @@ end
 exists fisher || begin
     mkdir -p fisher_path/functions &&
     curl -sL https://git.io/fisher > fisher_path/functions/fisher.fish &&
+    source fisher_path/functions/fisher.fish &&
     fisher update
 end
 
