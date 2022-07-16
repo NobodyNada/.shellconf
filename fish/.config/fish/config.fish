@@ -39,10 +39,8 @@ for file in $fisher_path/conf.d/*.fish
 end
 
 exists fisher || begin
-    mkdir -p fisher_path/functions &&
-    curl -sL https://git.io/fisher > fisher_path/functions/fisher.fish &&
-    source fisher_path/functions/fisher.fish &&
-    fisher update
+    curl -sL https://git.io/fisher | source &&
+    echo "loaded boostrapped fisher, run 'fisher update' to install plugins"
 end
 
 if test -d /opt/devkitpro
@@ -80,4 +78,4 @@ exists nvim; and begin; alias vim=nvim; set -x EDITOR nvim; end
 set -x RUST_BACKTRACE 1
 fish_add_path /usr/local/sbin
 
-fzf_configure_bindings --directory=\cf --git_status=\cs
+exists fzf_configure_bindings && fzf_configure_bindings --directory=\cf --git_status=\cs
