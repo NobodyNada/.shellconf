@@ -39,7 +39,9 @@ for file in $fisher_path/conf.d/*.fish
 end
 
 exists fisher || begin
-    curl -sL https://git.io/fisher | source && fisher update
+    mkdir -p fisher_path/functions &&
+    curl -sL https://git.io/fisher > fisher_path/functions &&
+    fisher update
 end
 
 if test -d /opt/devkitpro
