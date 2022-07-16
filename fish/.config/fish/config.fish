@@ -38,7 +38,9 @@ for file in $fisher_path/conf.d/*.fish
     source $file
 end
 
-exists fisher || curl -sL https://git.io/fisher | source && fisher update
+exists fisher || begin
+    curl -sL https://git.io/fisher | source && fisher update
+end
 
 if test -d /opt/devkitpro
     set -x DEVKITPRO /opt/devkitpro
