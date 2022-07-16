@@ -29,6 +29,17 @@ alias beep='echo -e \a'
 [ $UNAME = Darwin ]; and alias ls="ls -G"; or alias ls="ls --color=auto"
 [ $UNAME = Darwin ]; and set -x LSCOLORS Exfxdxdxbxegedabagacad
 
+set fisher_path $__fish_config_dir/fisher
+
+set fish_function_path $fisher_path/functions $fish_function_path
+set fish_complete_path $fisher_path/completions $fish_complete_path
+
+for file in $fisher_path/conf.d/*.fish
+    source $file
+end
+
+exists fisher || curl -sL https://git.io/fisher | source && fisher update
+
 if test -d /opt/devkitpro
     set -x DEVKITPRO /opt/devkitpro
     set -x DEVKITARM $DEVKITPRO/devkitARM
