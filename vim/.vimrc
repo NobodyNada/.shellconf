@@ -4,7 +4,7 @@ endif
 
 let &titlestring = "%t %m"
 set shiftwidth=4 tabstop=4 softtabstop=4 expandtab autoindent smartindent title
-au Filetype html set shiftwidth=2 tabstop=2 softtabstop=2
+au Filetype html,xml set shiftwidth=2 tabstop=2 softtabstop=2
 
 set scrolloff=4 backspace=indent,eol,start
 set ignorecase smartcase
@@ -60,6 +60,7 @@ Plug 'rust-lang/rust.vim'
 Plug 'maxbane/vim-asm_ca65'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'Raimondi/delimitMate'
+Plug 'alvan/vim-closetag'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'simeji/winresizer'
@@ -137,6 +138,8 @@ highlight CocErrorHighlight ctermfg=white ctermbg=red
 highlight CocWarningHighlight ctermfg=yellow cterm=bold,underline
 highlight CocErrorFloat ctermfg=red cterm=bold
 highlight CocWarningFloat ctermfg=yellow cterm=bold
+
+let g:closetag_filetypes = 'html,xhtml,phtml,xml'
 
 set updatetime=300
 set signcolumn=number
