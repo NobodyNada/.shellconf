@@ -45,6 +45,13 @@ augroup END
 :  autocmd TermEnter * setlocal nornu nonu nocursorline
 :augroup END
 
+" Save undo history
+if has('nvim')
+    " only on Neovim because we want to store history in the 
+    " data directory, not the working directory
+    set undofile
+end
+
 map <SPACE> <leader>
 
 nmap <Leader>r  <Plug>ReplaceWithRegisterOperator
@@ -75,6 +82,9 @@ Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'tpope/vim-abolish'
 if has('python3')
     Plug 'vimsence/vimsence'
+end
+if has('nvim')
+    Plug 'rmagatti/auto-session'
 end
 call plug#end()
 
