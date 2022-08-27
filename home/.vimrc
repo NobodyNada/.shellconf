@@ -117,14 +117,16 @@ function! s:extend_highlights()
     call onedark#set_highlight("CocRustChainingHint", {"fg": { "gui": "#808080", "cterm": "244", "cterm16": "8" }})
 endfunction
 
-if (has("autocmd"))
+if has_key(g:plugs, "onedark.vim")
     let s:colors = onedark#GetColors()
     augroup colorextend
         autocmd!
         autocmd ColorScheme * call s:extend_highlights()
     augroup END
+
+    colorscheme onedark
 endif
-colorscheme onedark
+
 
 let s:cached_git_status=""
 function! CachedGitStatus()
@@ -155,20 +157,28 @@ highlight CocWarningFloat ctermfg=yellow cterm=bold
 
 let g:closetag_filetypes = 'html,xhtml,phtml,xml'
 
+" https://github.com/neoclide/coc.nvim/issues/4059
+let g:auto_session_pre_save_cmds = ["call coc#float#close_all()"]
+
 set updatetime=300
 set signcolumn=number
 
-" Use tab for trigger completion with characters ahead and navigate.
-inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#pum#next(1):
-      \ <SID>check_back_space() ? "\<Tab>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+if has_key(g:plugs, "coc.nvim")
+    " Use tab for trigger completion with characters ahead and navigate.
+    inoremap <silent><expr> <TAB>
+          \ coc#pum#visible() ? coc#pum#next(1):
+          \ <SID>check_back_space() ? "\<Tab>" :
+          \ coc#refresh()
+    inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
-" Make <CR> to accept selected completion item or notify coc.nvim to format
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-inoremap <silent><expr> <Esc> coc#pum#visible() ? coc#pum#cancel() : "\<Esc>"
+    " Make <CR> to accept selected completion item or notify coc.nvim to format
+    inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                                  \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+    inoremap <silent><expr> <Esc> coc#pum#visible() ? coc#pum#cancel() : "\<Esc>"
+
+    " Highlight the symbol and its references when holding the cursor.
+    autocmd CursorHold * silent call CocActionAsync('highlight')
+endif
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -196,9 +206,6 @@ function! s:show_documentation()
     execute '!' . &keywordprg . " " . expand('<cword>')
   endif
 endfunction
-
-" Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
 
 
 " Symbol renaming.
