@@ -1,11 +1,11 @@
 .*.swp
-/vim/.vim/.netrwhist
-/vim/.vim/plugged
-/vim/.vim/spell/
+/home/.vim/.netrwhist
+/home/.vim/plugged
+/home/.vim/spell/
 
-/fish/.config/fish/conf.d/host_*.fish
-/fish/.config/fish/conf.d/000host_*.fish
-fish/.config/fish/functions/_*
-fish/.config/fish/fish_variables*
-fish/.config/fish/fisher
+/home/.config/fish/conf.d/host_*.fish
+/home/.config/fish/conf.d/000host_*.fish
+/home/.config/fish/functions/_*
+/home/.config/fish/fish_variables*
+/home/.config/fish/fisher
 __pycache__
