@@ -8,10 +8,10 @@
     "coc.preferences.formatOnSaveFiletypes": ["rust"],
     "suggest.virtualText": true,
 
-    "rust-analyzer.cargo.runBuildScripts": true,
+    "rust-analyzer.cargo.buildScripts.enable": true,
     "rust-analyzer.procMacro.enable": true,
     "rust-analyzer.checkOnSave.command": "clippy",
     "rust-analyzer.diagnostics.enable": false,
 
-    "rust-analyzer.inlayHints.enable": false
+    "rust-analyzer.inlayHints.enable": true
 }

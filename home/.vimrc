@@ -113,8 +113,6 @@ function! s:extend_highlights()
     call onedark#set_highlight("Identifier", {"fg": s:colors.purple, "gui": "bold", "cterm": "bold"})
     call onedark#set_highlight("StorageClass", {"fg": s:colors.yellow, "gui": "italic", "cterm": "italic"})
     call onedark#set_highlight("Conditional", {"fg": s:colors.purple, "gui": "bold", "cterm": "bold"})
-    call onedark#set_highlight("CocRustTypeHint",     {"fg": { "gui": "#808080", "cterm": "244", "cterm16": "8" }})
-    call onedark#set_highlight("CocRustChainingHint", {"fg": { "gui": "#808080", "cterm": "244", "cterm16": "8" }})
 endfunction
 
 if has_key(g:plugs, "onedark.vim")
@@ -154,6 +152,10 @@ highlight CocErrorHighlight ctermfg=white ctermbg=red
 highlight CocWarningHighlight ctermfg=yellow cterm=bold,underline
 highlight CocErrorFloat ctermfg=red cterm=bold
 highlight CocWarningFloat ctermfg=yellow cterm=bold
+highlight CocInlayHint cterm=italic ctermfg=240
+
+let g:coc_status_error_sign = '❌'
+let g:coc_status_warning_sign = "⚠"
 
 let g:closetag_filetypes = 'html,xhtml,phtml,xml'
 
