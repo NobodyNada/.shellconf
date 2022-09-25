@@ -75,6 +75,8 @@ alias v=vi; set -x EDITOR vi
 exists vim or exists nvim; and begin; alias vi=vim; set -x EDITOR vim; end
 exists nvim; and begin; alias vim=nvim; set -x EDITOR nvim; end
 
+exists kitty; and alias ssh="kitty +kitten ssh"
+
 set -x RUST_BACKTRACE 1
 fish_add_path /usr/local/sbin
 

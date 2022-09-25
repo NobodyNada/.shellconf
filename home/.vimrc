@@ -110,7 +110,13 @@ let g:onedark_color_overrides = {
       \ }
 
 function! s:extend_highlights()
-    call onedark#set_highlight("Identifier", {"fg": s:colors.purple, "gui": "bold", "cterm": "bold"})
+    call onedark#set_highlight("TypeDeclaration", {"fg": s:colors.yellow, "gui": "bold", "cterm": "bold"})
+    call onedark#set_highlight("CocSemProperty", {"fg": s:colors.blue})
+    call onedark#set_highlight("CocSemLibraryProperty", {"fg": s:colors.blue, "gui": "bold", "cterm": "bold"})
+    call onedark#set_highlight("Function", {"fg": s:colors.cyan})
+    call onedark#set_highlight("LibraryFunction", {"fg": s:colors.cyan, "gui": "bold", "cterm": "bold"})
+    call onedark#set_highlight("Identifier", {"fg": s:colors.white, "gui": "italic", "cterm": "italic"})
+    call onedark#set_highlight("IdentifierDeclaration", {"fg": s:colors.white})
     call onedark#set_highlight("StorageClass", {"fg": s:colors.yellow, "gui": "italic", "cterm": "italic"})
     call onedark#set_highlight("Conditional", {"fg": s:colors.purple, "gui": "bold", "cterm": "bold"})
 endfunction
@@ -125,6 +131,21 @@ if has_key(g:plugs, "onedark.vim")
     colorscheme onedark
 endif
 
+highlight Pmenu ctermfg=cyan ctermbg=black
+highlight CocErrorHighlight ctermfg=white ctermbg=red
+highlight CocWarningHighlight ctermfg=yellow cterm=bold,underline
+highlight CocErrorFloat ctermfg=red cterm=bold
+highlight CocWarningFloat ctermfg=yellow cterm=bold
+highlight CocInlayHint cterm=italic ctermfg=240
+hi link CocSemStruct Type
+hi link CocSemDeclarationStruct TypeDeclaration
+hi link CocSemDeclarationEnum TypeDeclaration
+hi link CocSemDeclarationClass TypeDeclaration
+hi link CocSemDeclarationVariable IdentifierDeclaration
+hi link CocSemDeclarationParameter IdentifierDeclaration
+hi link CocSemControlFlow Conditional
+hi link CocSemMethod Function
+hi link CocSemLibraryMethod LibraryFunction
 
 let s:cached_git_status=""
 function! CachedGitStatus()
@@ -146,13 +167,6 @@ let g:lightline = {
       \   'gitbranch': 'CachedGitStatus'
       \ },
       \ }
-
-highlight Pmenu ctermfg=cyan ctermbg=black
-highlight CocErrorHighlight ctermfg=white ctermbg=red
-highlight CocWarningHighlight ctermfg=yellow cterm=bold,underline
-highlight CocErrorFloat ctermfg=red cterm=bold
-highlight CocWarningFloat ctermfg=yellow cterm=bold
-highlight CocInlayHint cterm=italic ctermfg=240
 
 let g:coc_status_error_sign = '❌'
 let g:coc_status_warning_sign = "⚠"

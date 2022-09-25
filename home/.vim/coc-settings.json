@@ -7,6 +7,10 @@
     "coc.preferences.formatOnTypeFiletypes": ["rust"],
     "coc.preferences.formatOnSaveFiletypes": ["rust"],
     "suggest.virtualText": true,
+    "semanticTokens.filetypes": ["*"],
+    "semanticTokens.combinedModifiers": [
+        "deprecated", "controlFlow", "public"
+    ],
 
     "rust-analyzer.cargo.buildScripts.enable": true,
     "rust-analyzer.procMacro.enable": true,
