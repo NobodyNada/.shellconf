@@ -10,6 +10,7 @@ set scrolloff=4 backspace=indent,eol,start
 set ignorecase smartcase
 set laststatus=2 noshowmode
 set number
+set nohidden
 if has('linux')
     set clipboard=unnamedplus
 else
