@@ -65,6 +65,10 @@ set -x PATH $PATH $HOME/go/bin
 set -x PATH $HOME/.cargo/bin $PATH
 command -q rvm; and rvm default
 
+function md
+    mkdir $argv && cd $argv
+end
+
 exists hub; and alias git=hub
 alias v=vi; set -x EDITOR vi
 exists vim or exists nvim; and begin; alias vi=vim; set -x EDITOR vim; end

@@ -85,6 +85,7 @@ Plug 'inkarkat/vim-ReplaceWithRegister'
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'tpope/vim-abolish'
+Plug 'tikhomirov/vim-glsl'
 if has('python3')
     Plug 'vimsence/vimsence'
 end
@@ -211,6 +212,8 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+nmap <silent> <leader>g <Plug>(coc-fix-current)
+command! -nargs=* -range CocFix    :call CocActionAsync('codeActionRange', <line1>, <line2>, 'quickfix')
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -251,6 +254,26 @@ nnoremap <silent><nowait> <Leader>o  :<C-u>CocList outline<cr>
 nnoremap <silent><nowait> <Leader>s  :<C-u>CocList -I symbols<cr>
 " Resume latest coc list.
 nnoremap <silent><nowait> <Leader>p  :<C-u>CocListResume<CR>
+
+" Applying code actions to the selected code block
+" Example: `<leader>aap` for current paragraph
+xmap <leader>d  <Plug>(coc-codeaction-selected)
+nmap <leader>d  <Plug>(coc-codeaction-selected)
+
+nmap <leader>dd  <Plug>(coc-codeaction-line)
+nmap <leader>D   <leader>d$
+" Remap keys for applying code actions at the cursor position
+nmap <leader>dc  <Plug>(coc-codeaction-cursor)
+" Remap keys for apply code actions affect whole buffer
+nmap <leader>ds  <Plug>(coc-codeaction-source)
+
+" Remap keys for applying refactor code actions
+nmap <silent> <leader>xe <Plug>(coc-codeaction-refactor)
+xmap <silent> <leader>x  <Plug>(coc-codeaction-refactor-selected)
+nmap <silent> <leader>x  <Plug>(coc-codeaction-refactor-selected)
+nmap <silent> <leader>xx <Plug>(coc-codeaction-refactor-line)
+nmap <silent> <leader>X  <leader>x$
+
 
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
