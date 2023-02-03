@@ -1,4 +1,4 @@
-set -x PATH $HOME/bin $HOME/.bin $PATH
+set -x PATH $HOME/bin $HOME/.bin $HOME/.local/bin $PATH
 alias xcodeclean='rm -rf ~/Library/Developer/Xcode/DerivedData/* && rm -rf ~/Library/Caches/com.apple.dt.Xcode'
 if test -f ~/.homebrewtoken
     export HOMEBREW_GITHUB_API_TOKEN=(cat ~/.homebrewtoken)
