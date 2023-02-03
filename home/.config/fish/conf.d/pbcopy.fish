@@ -1,4 +1,12 @@
-if string match -q 'CYGWIN*' $UNAME
+if [ "$TERM" = xterm-kitty ]
+    function pbcopy
+        kitty +kitten clipboard $argv
+    end
+
+    function pbpaste
+        kitty +kitten clipboard --get-clipboard $argv
+    end
+else if string match -q 'CYGWIN*' $UNAME
     function pbcopy
         putclip
     end
