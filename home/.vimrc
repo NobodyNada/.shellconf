@@ -256,7 +256,7 @@ nnoremap <silent><nowait> <Leader>s  :<C-u>CocList -I symbols<cr>
 nnoremap <silent><nowait> <Leader>p  :<C-u>CocListResume<CR>
 
 " Applying code actions to the selected code block
-" Example: `<leader>aap` for current paragraph
+" Example: `<leader>dap` for current paragraph
 xmap <leader>d  <Plug>(coc-codeaction-selected)
 nmap <leader>d  <Plug>(coc-codeaction-selected)
 
@@ -280,7 +280,7 @@ command! -nargs=0 Format :call CocAction('format')
 
 " fuzzy find files & buffers
 nnoremap <silent><nowait> <Leader>f :GFiles<cr>
-nnoremap <silent><nowait> <Leader>v :Files<cr>
+nnoremap <silent><nowait> <Leader>F :Files<cr>
 nnoremap <silent><nowait> <Leader>b :Buffers<cr>
 
 " delimitMate: recognize <> pairs only in HTML mode
