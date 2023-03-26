@@ -1,4 +1,4 @@
 function pman
-    man -t $argv | open -fa Preview
+    man -t $argv | ps2pdf - - | open -fa Preview
 end
 

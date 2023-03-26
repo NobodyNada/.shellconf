@@ -1,5 +1,4 @@
 set fish_greeting
-function fish_title; end
 function key_bindings
     fish_vi_key_bindings insert
     fish_default_key_bindings --no-erase -M insert
