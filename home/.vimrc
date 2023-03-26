@@ -95,9 +95,7 @@ Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'tpope/vim-abolish'
 Plug 'tikhomirov/vim-glsl'
-if has('python3')
-    Plug 'vimsence/vimsence'
-end
+Plug 'andweeb/presence.nvim'
 call plug#end()
 
 " mac terminal supports bold/italics, but doesn't declare it
@@ -296,9 +294,6 @@ nnoremap <silent><nowait> <Leader>b :Buffers<cr>
 let delimitMate_matchpairs = "(:),[:],{:}"
 au FileType html let b:delimitMate_matchpairs = "(:),[:],{:},<:>"
 
-if has('nvim')
-    let g:vimsence_small_text = 'Neovim'
-    let g:vimsence_small_image = 'neovim'
-end
+let g:presence_neovim_image_text = 'Neovim'
 
 let g:pandoc#modules#disabled = ["folding"]
