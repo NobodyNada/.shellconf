@@ -118,6 +118,9 @@ def draw_status(draw_data: DrawData, screen: Screen) -> int:
     inactive_bg = as_rgb(int(draw_data.inactive_bg))
     default_bg = as_rgb(int(draw_data.default_bg))
 
+    if screen.cursor.x == 0:
+        screen.cursor.bg = default_bg
+
     clock = datetime.datetime.now().strftime(" %-I:%M ")
     cells = [
         (active_fg, inactive_bg, clock),
@@ -161,7 +164,8 @@ def draw_tab(
     global timer_id
     if timer_id is None:
         timer_id = add_timer(_periodic, 2.0, True)
-    cursor_x = _draw_tab(draw_data, screen, tab, before, max_title_length, index, is_last, extra_data)
+    if not (index == 1 and is_last):
+        cursor_x = _draw_tab(draw_data, screen, tab, before, max_title_length, index, is_last, extra_data)
     if is_last:
         return draw_status(draw_data, screen)
     else:
