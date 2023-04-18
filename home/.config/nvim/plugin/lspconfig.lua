@@ -38,7 +38,7 @@ cmp.setup {
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<CR>'] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
+      select = false,
     },
     ['<Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
@@ -90,7 +90,7 @@ end
 
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
 vim.keymap.set('n', '[g', vim.diagnostic.goto_prev)
-vim.keymap.set('n', 'g]', vim.diagnostic.goto_next)
+vim.keymap.set('n', ']g', vim.diagnostic.goto_next)
 
 vim.api.nvim_create_autocmd('CursorHold', { callback = vim.lsp.buf.document_highlight })
 vim.api.nvim_create_autocmd('CursorHoldI', { callback = vim.lsp.buf.document_highlight })
@@ -110,7 +110,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
         vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
         vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
-        vim.keymap.set('n', '<leader>d', vim.lsp.buf.code_action, opts)
+        vim.keymap.set({'n', 'v'}, '<leader>d', vim.lsp.buf.code_action, opts)
         vim.keymap.set('n', '<leader>g', function()
                 vim.lsp.buf.code_action({ context = { only = {'quickfix' } }, apply = true})
             end, opts)
