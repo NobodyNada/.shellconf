@@ -9,6 +9,8 @@ function! InsertIfTerminal()
     endif
 endfunction
 
+set termguicolors
+
 " https://vi.stackexchange.com/a/3765/13011
 autocmd BufWinEnter,WinEnter,TermOpen,CmdlineLeave * call InsertIfTerminal()
 

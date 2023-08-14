@@ -96,8 +96,9 @@ vim.api.nvim_create_autocmd('CursorHold', { callback = vim.lsp.buf.document_high
 vim.api.nvim_create_autocmd('CursorHoldI', { callback = vim.lsp.buf.document_highlight })
 vim.api.nvim_create_autocmd('CursorMoved', { callback = vim.lsp.buf.clear_references })
 
+group = vim.api.nvim_create_augroup('UserLspConfig', {})
 vim.api.nvim_create_autocmd('LspAttach', {
-    group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+    group = group,
     callback = function(env)
         local opts = { buffer = env.buf }
         vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
@@ -117,5 +118,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set('n', '<space>f', function()
                 vim.lsp.buf.format { async = true }
             end, opts)
+        vim.api.nvim_create_autocmd('BufWritePre', { group = group, callback = function() vim.lsp.buf.format() end })
     end
 })

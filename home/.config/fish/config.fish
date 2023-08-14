@@ -1,4 +1,4 @@
-set -x PATH $HOME/bin $HOME/.bin $HOME/.local/bin $PATH
+set -x PATH $HOME/bin $HOME/.bin $HOME/.local/bin /opt/homebrew/bin $PATH
 alias xcodeclean='rm -rf ~/Library/Developer/Xcode/DerivedData/* && rm -rf ~/Library/Caches/com.apple.dt.Xcode'
 if test -f ~/.homebrewtoken
     export HOMEBREW_GITHUB_API_TOKEN=(cat ~/.homebrewtoken)
@@ -29,6 +29,8 @@ alias beep='echo -e \a'
 [ $UNAME = Darwin ]; and alias ls="ls -G"; or alias ls="ls --color=auto"
 [ $UNAME = Darwin ]; and set -x LSCOLORS Exfxdxdxbxegedabagacad
 
+
+
 set fisher_path $__fish_config_dir/fisher
 
 set fish_function_path $fisher_path/functions $fish_function_path
@@ -52,6 +54,8 @@ end
 if test -d /usr/local/opt/util-linux
     set -x PATH $PATH /usr/local/opt/util-linux/bin /usr/local/opt/util-linux/sbin
 end
+
+set -l TTY (tty); and set -gx TTY $TTY
 
 [ $UNAME = Darwin ]; and set -x JAVA_HOME (/usr/libexec/java_home)
 

@@ -64,6 +64,22 @@ nmap <Leader>rr <Plug>ReplaceWithRegisterLine
 nmap <Leader>R <Leader>r$
 xmap <Leader>r  <Plug>ReplaceWithRegisterVisual
 
+" Use OSC52 clipboard provider if dependencies are available
+if has('nvim') && !empty('$TTY') && executable('osc52')
+    let g:clipboard = {
+                \   'name': 'osc52',
+                \   'copy': {
+                \       '+': ['osc52', 'copy'],
+                \       '*': ['osc52', 'copy'],
+                \   },
+                \   'paste': {
+                \       '+': ['osc52', 'paste'],
+                \       '*': ['osc52', 'paste'],
+                \   },
+                \   'cache_enabled': 1,
+                \}
+endif
+
 let g:pandoc#filetypes#pandoc_markdown = 0
 
 call plug#begin('~/.vim/plugged')
@@ -107,11 +123,11 @@ endif
 let g:onedark_terminal_italics = 1
 
 let g:onedark_color_overrides = {
-            \ "white": {"gui": "#d0d0d0", "cterm": "251", "cterm16": "7" },
+            \ "white": {"gui": "#d0d0d0", "cterm": "252", "cterm16": "7" },
             \ "black": {"gui": "#000000", "cterm": "0", "cterm16": "0"},
             \ "background": {"gui": "#000000", "cterm": "0", "cterm16": "0"},
             \ "red": { "gui": "#ff0087", "cterm": "198", "cterm16": "1" },
-            \ "comment_grey": { "gui": "#ff0087", "cterm": "109", "cterm16": "1" },
+            \ "comment_grey": { "gui": "#909797", "cterm": "246", "cterm16": "1" },
             \ "cursor_grey": {"gui": "#121212", "cterm": "233", "cterm16": "0"},
       \ }
 
