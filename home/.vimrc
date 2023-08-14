@@ -9,7 +9,6 @@ au Filetype html,xml set shiftwidth=2 tabstop=2 softtabstop=2
 set scrolloff=4 backspace=indent,eol,start
 set ignorecase smartcase
 set laststatus=2 noshowmode
-set number
 set nohidden
 if has('linux')
     set clipboard=unnamedplus
@@ -37,14 +36,14 @@ augroup vimrc-incsearch-highlight
 augroup END
 
 " smart relativenumber https://jeffkreeftmeijer.com/vim-number/
-:set number
-
 :augroup numbertoggle
 :  autocmd!
 :  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" && &buftype != 'terminal' | set rnu cursorline     | endif
 :  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                                            | set nornu nocursorline | endif
 :  autocmd TermEnter * setlocal nornu nonu nocursorline
 :augroup END
+set number
+set signcolumn=number
 
 " Save undo history
 if has('nvim')
@@ -142,6 +141,8 @@ function! s:extend_highlights()
     call onedark#set_highlight("IdentifierDeclaration", {"fg": s:colors.white})
     call onedark#set_highlight("StorageClass", {"fg": s:colors.yellow, "gui": "italic", "cterm": "italic"})
     call onedark#set_highlight("Conditional", {"fg": s:colors.purple, "gui": "bold", "cterm": "bold"})
+    call onedark#set_highlight("DiagnosticSignError", {"fg": s:colors.black, "bg": s:colors.red})
+    call onedark#set_highlight("DiagnosticSignWarn", {"fg": s:colors.black, "bg": s:colors.yellow})
 endfunction
 
 if has_key(g:plugs, "onedark.vim")
@@ -173,6 +174,14 @@ hi link CocSemLibraryMethod LibraryFunction
 hi LspReferenceText ctermbg=236
 hi LspReferenceRead ctermbg=236
 hi LspReferenceWrite ctermbg=52
+
+let g:gitgutter_highlight_linenrs = 1
+let g:gitgutter_sign_added = ''
+let g:gitgutter_sign_modified = ''
+let g:gitgutter_sign_removed = ''
+hi link GitGutterAddLineNr GitGutterAdd
+hi link GitGutterDeleteLineNr GitGutterDelete
+hi link GitGutterChangeLineNr GitGutterChange
 
 let s:cached_git_status=""
 function! CachedGitStatus()
@@ -223,7 +232,6 @@ let g:closetag_filetypes = 'html,xhtml,phtml,xml'
 let g:auto_session_pre_save_cmds = ["call coc#float#close_all()"]
 
 set updatetime=300
-set signcolumn=number
 
 if has_key(g:plugs, "coc.nvim")
     function! s:check_back_space() abort
