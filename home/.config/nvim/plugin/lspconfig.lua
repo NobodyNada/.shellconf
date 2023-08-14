@@ -1,7 +1,63 @@
 local lspconfig = require('lspconfig')
 require('lspfuzzy').setup {}
 
+local signs = { Error = "❌", Warn = "⚠", Hint = "ℹ︎", Info = "ℹ︎" }
+
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
+local status = require('lsp-status')
+status.register_progress()
+capabilities = vim.tbl_extend('keep', capabilities, status.capabilities)
+status_config = {
+    indicator_errors = signs.Error,
+    indicator_warnings = signs.Warn,
+    indicator_hint = signs.Hint,
+    indicator_info = signs.Info,
+    indicator_ok = '✓',
+    indicator_separator = '',
+    component_separator = ' ',
+    status_symbol = '',
+    diagnostics = true,
+    current_function = true
+}
+status.config(status_config)
+status.status = function(bufnr)
+    bufnr = bufnr or 0
+    if vim.tbl_count(vim.lsp.buf_get_clients(bufnr)) == 0 then return '' end
+    local buf_diagnostics = status_config.diagnostics and require('lsp-status/diagnostics')(bufnr) or nil
+    local only_hint = true
+    local some_diagnostics = false
+    local status_parts = {}
+    if buf_diagnostics then
+        if buf_diagnostics.errors and buf_diagnostics.errors > 0 then
+          table.insert(status_parts,
+                       status_config.indicator_errors .. status_config.indicator_separator .. buf_diagnostics.errors)
+          only_hint = false
+          some_diagnostics = true
+        end
+
+        if buf_diagnostics.warnings and buf_diagnostics.warnings > 0 then
+          table.insert(status_parts, status_config.indicator_warnings .. status_config.indicator_separator ..
+                         buf_diagnostics.warnings)
+          only_hint = false
+          some_diagnostics = true
+        end
+    end
+
+    local msgs = require('lsp-status/statusline').progress()
+
+    local base_status = vim.trim(table.concat(status_parts, status_config.component_separator) .. ' ' .. msgs)
+    local symbol = status_config.status_symbol;
+    if status_config.current_function then
+        local current_function = vim.b.lsp_current_function
+        if current_function and current_function ~= '' then
+          symbol = symbol .. '(' .. current_function .. ')' .. status_config.component_separator
+        end
+    end
+
+    if base_status ~= '' then return symbol .. base_status .. ' ' end
+    if not status_config.diagnostics then return symbol end
+    return symbol .. status_config.indicator_ok .. ' '
+end
 
 lspconfig.rust_analyzer.setup {
     settings = {
@@ -11,6 +67,7 @@ lspconfig.rust_analyzer.setup {
             }
         },
     },
+    on_attach = status.on_attach,
     capabilities = capabilities
 }
 
@@ -82,7 +139,6 @@ vim.diagnostic.config({
     severity_sort = true
 })
 
-local signs = { Error = "❌", Warn = "⚠", Hint = "ℹ︎", Info = "ℹ︎" }
 for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })

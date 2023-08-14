@@ -90,6 +90,7 @@ if has('nvim')
     Plug 'hrsh7th/cmp-buffer'
     Plug 'hrsh7th/cmp-path'
     Plug 'hrsh7th/cmp-cmdline'
+    Plug 'tomtomjhj/lsp-status.nvim', {'commit': 'c220c09bc9213c25f445b19e9f1bb33e126b5925'}
     Plug 'L3MON4D3/LuaSnip', {'tag': 'v1.*', 'do': 'make install_jsregexp'}
 end
 Plug 'dag/vim-fish'
@@ -186,13 +187,32 @@ let g:lightline = {
       \ 'colorscheme': 'onedark',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified', 'cocstatus' ] ]
+      \             [ 'gitbranch', 'readonly', 'filename', 'lspstatus' ] ]
+      \ },
+      \ 'component_expand': {
+      \   'lspstatus': 'LightlineLspStatus',
+      \ },
+      \ 'component_type': {
+      \   'lspstatus': 'raw'
       \ },
       \ 'component_function': {
-      \   'cocstatus': 'coc#status',
+      \   'filename': 'LightlineFilename',
       \   'gitbranch': 'CachedGitStatus'
       \ },
       \ }
+function! LightlineLspStatus() abort
+  if luaeval('#vim.lsp.buf_get_clients() > 0')
+    return '%< %{luaeval("require(''lsp-status'').status()")}'
+  else
+    return ''
+  endif
+endfunction
+function! LightlineFilename()
+  let filename = expand('%:t') !=# '' ? expand('%:t') : '[No Name]'
+  let modified = &modified ? ' +' : &modifiable ? '' : ' -'
+  return filename . modified
+endfunction
+autocmd LspAttach * call lightline#update()
 
 let g:coc_status_error_sign = '❌'
 let g:coc_status_warning_sign = "⚠"
