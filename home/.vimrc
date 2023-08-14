@@ -63,22 +63,6 @@ nmap <Leader>rr <Plug>ReplaceWithRegisterLine
 nmap <Leader>R <Leader>r$
 xmap <Leader>r  <Plug>ReplaceWithRegisterVisual
 
-" Use OSC52 clipboard provider if dependencies are available
-if has('nvim') && !empty('$TTY') && executable('osc52')
-    let g:clipboard = {
-                \   'name': 'osc52',
-                \   'copy': {
-                \       '+': ['osc52', 'copy'],
-                \       '*': ['osc52', 'copy'],
-                \   },
-                \   'paste': {
-                \       '+': ['osc52', 'paste'],
-                \       '*': ['osc52', 'paste'],
-                \   },
-                \   'cache_enabled': 1,
-                \}
-endif
-
 let g:pandoc#filetypes#pandoc_markdown = 0
 
 call plug#begin('~/.vim/plugged')
