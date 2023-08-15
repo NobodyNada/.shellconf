@@ -10,15 +10,11 @@ set scrolloff=4 backspace=indent,eol,start
 set ignorecase smartcase
 set laststatus=2 noshowmode
 set nohidden
-if has('linux')
-    set clipboard=unnamedplus
-else
-    set clipboard=unnamed
-endif
+set clipboard=unnamedplus
 filetype plugin indent on
 syntax on
 autocmd BufWritePost src.md silent !./render.sh
-autocmd BufWritePost *.cho !bash -c "chordpro %:S 2>/dev/null"
+autocmd BufWritePost *.cho !bash -c "chordpro --config=modern1 %:S > %:r:S.pdf"
 autocmd BufNewFile *.hw 0r ~/.vim/templates/template.hw
 autocmd Filetype gitcommit set textwidth=72
 map ; :

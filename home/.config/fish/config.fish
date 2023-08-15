@@ -63,7 +63,7 @@ set -x SWIFTENV_ROOT $HOME/.swiftenv
 set -x PATH $SWIFTENV_ROOT/bin $PATH
 exists swiftenv; and source (swiftenv init - | psub)
 
-set -x PATH /usr/local/opt/perl/bin $PATH
+set -x PATH /usr/local/opt/perl/bin /opt/homebrew/opt/perl/bin $PATH
 set -x PATH $PATH $HOME/go/bin
 
 set -x PATH $HOME/.cargo/bin $PATH
