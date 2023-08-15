@@ -151,8 +151,8 @@ for type, icon in pairs(signs) do
 end
 
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
-vim.keymap.set('n', '[g', vim.diagnostic.goto_prev)
-vim.keymap.set('n', ']g', vim.diagnostic.goto_next)
+vim.keymap.set('n', '<Plug>(diagnostic-goto-prev)', vim.diagnostic.goto_prev)
+vim.keymap.set('n', '<Plug>(diagnostic-goto-next)', vim.diagnostic.goto_next)
 
 vim.api.nvim_create_autocmd('CursorHold', { callback = vim.lsp.buf.document_highlight })
 vim.api.nvim_create_autocmd('CursorHoldI', { callback = vim.lsp.buf.document_highlight })
