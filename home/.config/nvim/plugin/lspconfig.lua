@@ -118,6 +118,12 @@ cmp.setup {
   }),
 }
 
+
+luasnip.setup({
+    region_check_events = "InsertLeave",
+    delete_check_events = "TextChanged,InsertEnter",
+})
+
 cmp.setup.cmdline({ '/', '?' }, {
     mapping = cmp.mapping.preset.cmdline(),
     sources = {
