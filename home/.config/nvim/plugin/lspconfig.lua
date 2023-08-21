@@ -70,6 +70,10 @@ lspconfig.rust_analyzer.setup {
     on_attach = status.on_attach,
     capabilities = capabilities
 }
+lspconfig.clangd.setup {
+    on_attach = status.on_attach,
+    capabilities = capabilities
+}
 
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
