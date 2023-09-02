@@ -158,10 +158,12 @@ hi LspReferenceWrite ctermbg=52
 let g:gitgutter_highlight_linenrs = 1
 let g:gitgutter_sign_added = ''
 let g:gitgutter_sign_modified = ''
+let g:gitgutter_sign_modified_removed = ''
 let g:gitgutter_sign_removed = ''
 hi link GitGutterAddLineNr GitGutterAdd
 hi link GitGutterDeleteLineNr GitGutterDelete
 hi link GitGutterChangeLineNr GitGutterChange
+hi link GitGutterChangeDeleteLineNr GitGutterChange
 
 let s:cached_git_status=""
 function! CachedGitStatus()

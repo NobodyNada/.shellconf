@@ -181,9 +181,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set('n', '<leader>g', function()
                 vim.lsp.buf.code_action({ context = { only = {'quickfix' } }, apply = true})
             end, opts)
-        vim.keymap.set('n', '<space>f', function()
-                vim.lsp.buf.format { async = true }
-            end, opts)
         vim.api.nvim_create_autocmd('BufWritePre', { group = group, callback = function() vim.lsp.buf.format() end })
 
         local client = vim.lsp.get_client_by_id(env.data.client_id)
