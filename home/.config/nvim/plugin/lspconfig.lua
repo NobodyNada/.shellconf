@@ -185,6 +185,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
                 vim.lsp.buf.format { async = true }
             end, opts)
         vim.api.nvim_create_autocmd('BufWritePre', { group = group, callback = function() vim.lsp.buf.format() end })
+
+        local client = vim.lsp.get_client_by_id(env.data.client_id)
+        if client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
+            vim.lsp.inlay_hint(env.buf, true)
+        end
     end
 })
 
