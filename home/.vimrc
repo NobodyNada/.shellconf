@@ -61,6 +61,10 @@ xmap <Leader>r  <Plug>ReplaceWithRegisterVisual
 
 let g:pandoc#filetypes#pandoc_markdown = 0
 
+let g:AutoPairsMapBS = 1
+let g:rust_keep_autopairs_default = 1
+au Filetype rust,c,cpp inoremap ;<CR> <End>;<CR>
+
 call plug#begin('~/.vim/plugged')
 if has('nvim')
     Plug 'neovim/nvim-lspconfig'
@@ -75,7 +79,7 @@ end
 Plug 'dag/vim-fish'
 Plug 'rust-lang/rust.vim'
 Plug 'maxbane/vim-asm_ca65'
-Plug 'Raimondi/delimitMate'
+Plug 'LunarWatcher/auto-pairs'
 Plug 'alvan/vim-closetag'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -354,9 +358,6 @@ noremap <expr> [g JumpPrev('<Plug>(diagnostic-goto-next)', '<Plug>(diagnostic-go
 noremap <expr> ]c JumpNext('<Plug>(GitGutterNextHunk)', '<Plug>(GitGutterPrevHunk)')
 noremap <expr> [c JumpPrev('<Plug>(GitGutterNextHunk)', '<Plug>(GitGutterPrevHunk)')
 
-" delimitMate: recognize <> pairs only in HTML mode
-let delimitMate_matchpairs = "(:),[:],{:}"
-au FileType html let b:delimitMate_matchpairs = "(:),[:],{:},<:>"
 
 let g:presence_neovim_image_text = 'Neovim'
 
