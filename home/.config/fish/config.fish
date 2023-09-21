@@ -78,7 +78,7 @@ alias v=vi; set -x EDITOR vi
 exists vim or exists nvim; and begin; alias vi=vim; set -x EDITOR vim; end
 exists nvim; and begin; alias vim=nvim; set -x EDITOR nvim; end
 
-exists kitty; and alias ssh="kitty +kitten ssh"
+exists kitty; and [ "$TERM" = xterm-kitty]; and not set -q SSH_TTY; and alias ssh="kitty +kitten ssh"
 alias icat="kitten icat"
 
 alias pwninit="pwninit --template-path ~/.shellconf/pwninit-template.py --template-bin-name e"
