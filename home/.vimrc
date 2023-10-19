@@ -353,6 +353,7 @@ noremap <expr> n JumpNext()
 noremap <expr> N JumpPrev()
 
 cnoremap <expr> <Enter> getcmdtype() =~# '[?/]' ? JumpNext('n', 'N', '<CR>') : '<CR>'
+noremap <expr> * JumpNext('n', 'N', '*')
 noremap <expr> ]g JumpNext('<Plug>(diagnostic-goto-next)', '<Plug>(diagnostic-goto-prev)')
 noremap <expr> [g JumpPrev('<Plug>(diagnostic-goto-next)', '<Plug>(diagnostic-goto-prev)')
 noremap <expr> ]c JumpNext('<Plug>(GitGutterNextHunk)', '<Plug>(GitGutterPrevHunk)')
