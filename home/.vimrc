@@ -17,6 +17,7 @@ autocmd BufWritePost src.md silent !./render.sh
 autocmd BufWritePost *.cho !bash -c "chordpro %:S > %:r:S.pdf"
 autocmd BufNewFile *.hw 0r ~/.vim/templates/template.hw
 autocmd Filetype gitcommit set textwidth=72
+autocmd BufNew * set bufhidden=delete
 map ; :
 map <C-w>; <C-w>:
 tmap <C-w>; <C-w>:
