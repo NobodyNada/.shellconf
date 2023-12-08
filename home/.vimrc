@@ -10,7 +10,6 @@ set scrolloff=4 backspace=indent,eol,start
 set ignorecase smartcase
 set laststatus=2 noshowmode
 set nohidden
-set clipboard=unnamedplus
 filetype plugin indent on
 syntax on
 autocmd BufWritePost src.md silent !./render.sh
@@ -48,6 +47,21 @@ if has('nvim')
     " data directory, not the working directory
     set undofile
 end
+
+if has('nvim-0.10.0')
+    let g:clipboard={
+                \  'name': 'OSC 52',
+                \  'copy': {
+                \    '+': v:lua.require('vim.ui.clipboard.osc52').copy('+'),
+                \    '*': v:lua.require('vim.ui.clipboard.osc52').copy('*'),
+                \  },
+                \  'paste': {
+                \    '+': v:lua.require('vim.ui.clipboard.osc52').paste('+'),
+                \    '*': v:lua.require('vim.ui.clipboard.osc52').paste('*'),
+                \  },
+                \}
+endif
+set clipboard=unnamedplus
 
 " Restore cursor position when opening a file (:help last-position-jump)
 autocmd BufRead * autocmd FileType <buffer> ++once
