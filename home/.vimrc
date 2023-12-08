@@ -360,6 +360,7 @@ noremap <expr> [g JumpPrev('<Plug>(diagnostic-goto-next)', '<Plug>(diagnostic-go
 noremap <expr> ]c JumpNext('<Plug>(GitGutterNextHunk)', '<Plug>(GitGutterPrevHunk)')
 noremap <expr> [c JumpPrev('<Plug>(GitGutterNextHunk)', '<Plug>(GitGutterPrevHunk)')
 
+inoremap ;<CR> <End>;<CR>
 
 let g:presence_neovim_image_text = 'Neovim'
 
