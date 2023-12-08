@@ -60,6 +60,7 @@ status.status = function(bufnr)
 end
 
 lspconfig.rust_analyzer.setup {
+    cmd = { vim.fn.executable('ra-multipex') and 'ra-multiplex' or 'rust-analyzer' },
     settings = {
         ['rust-analyzer'] = {
             checkOnSave = {
