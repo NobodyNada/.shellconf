@@ -2,7 +2,10 @@ if &shell =~# 'fish$'
 "    set shell=zsh
 endif
 
-let &titlestring = "%t %m"
+" If the filename is 'mod.rs', also show the parent directory
+let &titlestring = "%{expand('%:t') == 'mod.rs' ?
+        \ (expand('%:h:t') . '/' . expand('%:t')) :
+        \ expand('%:t')} %m"
 set shiftwidth=4 tabstop=4 softtabstop=4 expandtab autoindent smartindent title
 au Filetype html,xml set shiftwidth=2 tabstop=2 softtabstop=2
 
@@ -78,7 +81,8 @@ let g:pandoc#filetypes#pandoc_markdown = 0
 
 let g:AutoPairsMapBS = 1
 let g:rust_keep_autopairs_default = 1
-au Filetype rust,c,cpp inoremap ;<CR> <End>;<CR>
+au Filetype rust,c,cpp inoremap ;; <End>;
+au Filetype rust,c,cpp imap {{ <End>{
 
 call plug#begin('~/.vim/plugged')
 if has('nvim')
@@ -142,6 +146,7 @@ function! s:extend_highlights()
     call onedark#set_highlight("Conditional", {"fg": s:colors.purple, "gui": "bold", "cterm": "bold"})
     call onedark#set_highlight("DiagnosticSignError", {"fg": s:colors.black, "bg": s:colors.red})
     call onedark#set_highlight("DiagnosticSignWarn", {"fg": s:colors.black, "bg": s:colors.yellow})
+    call onedark#set_highlight("DiagnosticHint", {"fg": s:colors.purple})
 endfunction
 
 if has_key(g:plugs, "onedark.vim")
