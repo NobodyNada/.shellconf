@@ -75,6 +75,10 @@ lspconfig.clangd.setup {
     on_attach = status.on_attach,
     capabilities = capabilities
 }
+lspconfig.pylsp.setup {
+    on_attach = status.on_attach,
+    capabilities = capabilities
+}
 
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
