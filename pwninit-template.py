@@ -6,16 +6,16 @@ from pwn import *
 
 context.binary = {bin_name}
 debug_script='''
-
+decompiler connect binja
 '''
 
 def conn():
     if args.REMOTE:
         p = remote("addr", 1337)
-    else if args.D:
-        p = gdb.debug({proc_args}, gdbscript=debug_script)
+    elif args.D:
+        p = gdb.debug([{bin_name}.path], gdbscript=debug_script, env=[('SHELL', '/bin/bash')])
     else:
-        p = process({proc_args})
+        p = process([{bin_name}.path])
 
     return p
 

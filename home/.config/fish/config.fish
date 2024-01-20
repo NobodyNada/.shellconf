@@ -81,7 +81,7 @@ exists nvim; and begin; alias vim=nvim; set -x EDITOR nvim; end
 exists kitty; and [ "$TERM" = xterm-kitty ]; and not set -q SSH_TTY; and alias ssh="kitty +kitten ssh"
 alias icat="kitten icat"
 
-alias pwninit="pwninit --template-path ~/.shellconf/pwninit-template.py --template-bin-name e"
+alias pwninit="pwninit --template-path ~/.shellconf/pwninit-template.py && mv -n solve.py e.py"
 
 set -x RUST_BACKTRACE 1
 fish_add_path /usr/local/sbin
