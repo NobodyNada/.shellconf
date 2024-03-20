@@ -7,7 +7,6 @@ function key_bindings
 end
 set -g fish_key_bindings key_bindings
 
-
 function fish_mode_prompt
   switch $fish_bind_mode
     case default

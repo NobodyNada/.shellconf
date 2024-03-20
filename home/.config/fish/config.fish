@@ -86,4 +86,13 @@ alias pwninit="pwninit --template-path ~/.shellconf/pwninit-template.py && mv -n
 set -x RUST_BACKTRACE 1
 fish_add_path /usr/local/sbin
 
+function last_history_item
+    echo $history[1]
+end
+abbr -a !! --position anywhere --function last_history_item
+abbr -a fk --function last_history_item
+
+abbr -a c cargo
+abbr -a g git
+
 exists fzf_configure_bindings && fzf_configure_bindings --directory=\cf --git_status=\cs

@@ -340,6 +340,8 @@ nnoremap <silent><nowait> <Leader>f :GFiles<cr>
 nnoremap <silent><nowait> <Leader>F :Files<cr>
 nnoremap <silent><nowait> <Leader>b :Buffers<cr>
 
+nnoremap <Leader>cr :CargoReload<cr>
+
 " use n/N to repeat last jump/goto action
 let s:jump_next = "n"
 let s:jump_prev = "N"
@@ -378,6 +380,8 @@ noremap <expr> ]g JumpNext('<Plug>(diagnostic-goto-next)', '<Plug>(diagnostic-go
 noremap <expr> [g JumpPrev('<Plug>(diagnostic-goto-next)', '<Plug>(diagnostic-goto-prev)')
 noremap <expr> ]c JumpNext('<Plug>(GitGutterNextHunk)', '<Plug>(GitGutterPrevHunk)')
 noremap <expr> [c JumpPrev('<Plug>(GitGutterNextHunk)', '<Plug>(GitGutterPrevHunk)')
+noremap <expr> ]s JumpNext(']s', '[s')
+noremap <expr> [s JumpPrev(']s', '[s')
 
 inoremap ;<CR> <End>;<CR>
 
