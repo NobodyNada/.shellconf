@@ -27,6 +27,8 @@ tmap <C-w>; <C-w>:
 tmap <C-w><C-w> <C-w>w
 tmap <C-e> <C-w>:<C-u>WinResizerStartResize<cr>
 
+imap <F13> <Nop>
+
 set incsearch nohlsearch
 augroup vimrc-incsearch-highlight
   autocmd!
