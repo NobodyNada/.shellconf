@@ -55,6 +55,8 @@ if test -d /usr/local/opt/util-linux
     set -x PATH $PATH /usr/local/opt/util-linux/bin /usr/local/opt/util-linux/sbin
 end
 
+set GOPATH ~/.go
+
 set -l TTY (tty); and set -gx TTY $TTY
 
 [ $UNAME = Darwin ]; and set -x JAVA_HOME (/usr/libexec/java_home)

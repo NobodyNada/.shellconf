@@ -19,6 +19,8 @@ autocmd BufWritePost src.md silent !./render.sh
 autocmd BufWritePost *.cho !bash -c "chordpro %:S > %:r:S.pdf"
 autocmd BufNewFile *.hw 0r ~/.vim/templates/template.hw
 autocmd Filetype gitcommit set textwidth=72
+autocmd Filetype plaintex,tex,pandoc setlocal textwidth=100
+autocmd Filetype plaintex,tex set spell
 autocmd BufNew * set bufhidden=delete
 map ; :
 map <C-w>; <C-w>:
@@ -80,6 +82,8 @@ nmap <Leader>R <Leader>r$
 xmap <Leader>r  <Plug>ReplaceWithRegisterVisual
 
 let g:pandoc#filetypes#pandoc_markdown = 0
+let g:pandoc#formatting#textwidth = 100
+let g:pandoc#formatting#mode = "h"
 
 let g:AutoPairsMapBS = 1
 let g:rust_keep_autopairs_default = 1
@@ -230,6 +234,8 @@ function! LightlineFilename()
   return filename . modified
 endfunction
 autocmd LspAttach * call lightline#update()
+autocmd BufEnter * call lightline#update()
+autocmd TermLeave * call timer_start(100, { tid -> execute("call lightline#update()") } )
 
 let g:coc_status_error_sign = '❌'
 let g:coc_status_warning_sign = "⚠"

@@ -77,7 +77,7 @@ lspconfig.clangd.setup {
 }
 lspconfig.pylsp.setup {
     on_attach = status.on_attach,
-    capabilities = capabilities
+    capabilities = capabilities,
 }
 
 local cmp = require 'cmp'
@@ -163,10 +163,6 @@ vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
 vim.keymap.set('n', '<Plug>(diagnostic-goto-prev)', vim.diagnostic.goto_prev)
 vim.keymap.set('n', '<Plug>(diagnostic-goto-next)', vim.diagnostic.goto_next)
 
-vim.api.nvim_create_autocmd('CursorHold', { callback = vim.lsp.buf.document_highlight })
-vim.api.nvim_create_autocmd('CursorHoldI', { callback = vim.lsp.buf.document_highlight })
-vim.api.nvim_create_autocmd('CursorMoved', { callback = vim.lsp.buf.clear_references })
-
 group = vim.api.nvim_create_augroup('UserLspConfig', {})
 vim.api.nvim_create_autocmd('LspAttach', {
     group = group,
@@ -186,18 +182,49 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set('n', '<leader>g', function()
                 vim.lsp.buf.code_action({ context = { only = {'quickfix' } }, apply = true})
             end, opts)
-        vim.api.nvim_create_autocmd('BufWritePre', { group = group, callback = function() vim.lsp.buf.format() end })
+        vim.api.nvim_create_autocmd('BufWritePre', { pattern = {'*.rs'}, group = group, callback = function() vim.lsp.buf.format() end })
 
         local client = vim.lsp.get_client_by_id(env.data.client_id)
         if client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
-            vim.lsp.inlay_hint.enable(env.buf, true)
+            vim.lsp.inlay_hint.enable(true)
         end
+
+        if client.server_capabilities.documentHighlightProvidor then
+            vim.api.nvim_create_autocmd('CursorHold', { callback = vim.lsp.buf.document_highlight })
+            vim.api.nvim_create_autocmd('CursorHoldI', { callback = vim.lsp.buf.document_highlight })
+        end
+        vim.api.nvim_create_autocmd('CursorMoved', { callback = vim.lsp.buf.clear_references })
     end
 })
 
-vim.api.nvim_create_autocmd("BufWritePre", {
-    buffer = buffer,
-    callback = function()
-        vim.lsp.buf.format { async = false }
-    end
-})
+
+-- local llm = require('llm')
+-- 
+-- llm.setup({
+--   api_token = "no token",
+--   tokens_to_clear = { "<EOT>" },
+--   fim = {
+--     enabled = true,
+--     prefix = "<PRE> ",
+--     middle = " <MID>",
+--     suffix = " <SUF>",
+--   },
+--   query_params = {
+--     maxNewTokens = 60,
+--     temperature = 0.2,
+--     topP = 0.95,
+--     stop_tokens = nil,
+--   },
+--   model = "http://localhost:11434/api/generate",
+--   context_window = 4096,
+--   tokenizer = {
+--     repository = "codellama/CodeLlama-7b-hf",
+--   },
+--   adaptor = "ollama",
+--   request_body = { model = "codellama:7b-code" },
+--   lsp = {
+--     bin_path = "/Users/jonathan/.cargo/bin/llm-ls"
+--   },
+--   enable_suggestions_on_startup = true,
+--   enable_suggestions_on_files = "*", -- pattern matching syntax to enable suggestions on specific files, either a string or a list of strings
+-- })
