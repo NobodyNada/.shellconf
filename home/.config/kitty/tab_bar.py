@@ -11,6 +11,7 @@ from kitty.tab_bar import (
 )
 from kitty.utils import which
 import subprocess
+import sys
 
 def _periodic(timer_id):
     for tm in get_boss().all_tab_managers:
@@ -77,38 +78,66 @@ def _draw_tab(
         screen.draw(' ')
     return end
 
-nowplaying_cli = which("nowplaying-cli")
-nowplaying_process = None
-nowplaying_output = None
-def get_playback_status():
-    global nowplaying_cli, nowplaying_process, nowplaying_output
+if sys.platform == "darwin":
+    nowplaying_cli = which("nowplaying-cli")
+    nowplaying_process = None
+    nowplaying_output = None
+    def get_playback_status():
+        global nowplaying_cli, nowplaying_process, nowplaying_output
 
-    if nowplaying_cli is not None:
-        if nowplaying_process is None:
-            nowplaying_process = subprocess.Popen(
-                    [nowplaying_cli, "get", "title", "artist", "playbackRate"], 
-                    stdout=subprocess.PIPE)
+        if nowplaying_cli is not None:
+            if nowplaying_process is None:
+                nowplaying_process = subprocess.Popen(
+                        [nowplaying_cli, "get", "title", "artist", "playbackRate"], 
+                        stdout=subprocess.PIPE)
 
-        if nowplaying_process.poll() is not None:
-            nowplaying_output, _ = nowplaying_process.communicate()
-            nowplaying_process = None
-            
-        if nowplaying_output is not None:
-            lines = nowplaying_output.decode('utf-8').split("\n")
-            if len(lines) != 4:
-                return None
-            title, artist, playback_rate = lines[0], lines[1], lines[2]
-            if title == "null" and artist == "null" and playback_rate == "null":
-                return None
+            if nowplaying_process.poll() is not None:
+                nowplaying_output, _ = nowplaying_process.communicate()
+                nowplaying_process = None
+                
+            if nowplaying_output is not None:
+                lines = nowplaying_output.decode('utf-8').split("\n")
+                if len(lines) != 4:
+                    return None
+                title, artist, playback_rate = lines[0], lines[1], lines[2]
+                if title == "null" and artist == "null" and playback_rate == "null":
+                    return None
 
-            icon = "⏵" if playback_rate == "1" else "⏸"
+                icon = "⏵" if playback_rate == "1" else "⏸"
 
-            output = f"{icon} {title}"
-            if artist not in ["null", ""]:
-                output += " - " + artist
-            return output
+                output = f"{icon} {title}"
+                if artist not in ["null", ""]:
+                    output += " - " + artist
+                return output
 
-    return None
+        return None
+elif sys.platform == "linux":
+    # https://stackoverflow.com/a/33923095
+    import dbus
+    spotify_properties = None
+    def get_playback_status():
+        try:
+            global spotify_properties
+            if spotify_properties is None:
+                session_bus = dbus.SessionBus()
+                spotify_bus = session_bus.get_object("org.mpris.MediaPlayer2.spotify",
+                                                     "/org/mpris/MediaPlayer2")
+                spotify_properties = dbus.Interface(spotify_bus,
+                                                    "org.freedesktop.DBus.Properties")
+            metadata = spotify_properties.Get("org.mpris.MediaPlayer2.Player", "Metadata")
+            playback_status = spotify_properties.Get("org.mpris.MediaPlayer2.Player", "PlaybackStatus")
+
+            icon = "⏵" if playback_status == "Playing" else "⏸"
+            title = metadata['xesam:title']
+            artist = ", ".join(metadata['xesam:artist'])
+            return f"{icon} {title} - {artist}"
+
+        except dbus.DBusException:
+            spotify_properties = None
+            return None
+else:
+    def get_playback_status():
+        return None
 
 def draw_status(draw_data: DrawData, screen: Screen) -> int:
     import datetime
