@@ -8,4 +8,5 @@
 /home/.config/fish/functions/_*
 /home/.config/fish/fish_variables*
 /home/.config/fish/fisher
+/home/.config/kitty/host.conf
 __pycache__
