@@ -65,6 +65,9 @@ lspconfig.rust_analyzer.setup {
         ['rust-analyzer'] = {
             checkOnSave = {
                 command = "clippy"
+            },
+            check = {
+                allTargets = false
             }
         },
     },

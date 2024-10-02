@@ -4,6 +4,10 @@ function key_bindings
     fish_default_key_bindings --no-erase -M insert
     bind \ec fzf_jump_directory
     bind -M insert \ec fzf_jump_directory
+    bind \ek prevd
+    bind \ej nextd
+    bind -M insert \ek 'prevd && commandline -f repaint || echo -ne \a'
+    bind -M insert \ej 'nextd && commandline -f repaint || echo -ne \a'
 end
 set -g fish_key_bindings key_bindings
 
