@@ -67,7 +67,7 @@ lspconfig.rust_analyzer.setup {
                 command = "clippy"
             },
             check = {
-                allTargets = false
+                allTargets = true
             }
         },
     },

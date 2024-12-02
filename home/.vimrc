@@ -397,3 +397,8 @@ inoremap ;<CR> <End>;<CR>
 let g:presence_neovim_image_text = 'Neovim'
 
 let g:pandoc#modules#disabled = ["folding"]
+
+call autopairs#AutoPairsAddPair({
+            \ "open": ".proc",
+            \ "close": ".endproc",
+            \ })
