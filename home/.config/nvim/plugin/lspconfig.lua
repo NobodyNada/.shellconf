@@ -59,29 +59,36 @@ status.status = function(bufnr)
     return symbol .. status_config.indicator_ok .. ' '
 end
 
-lspconfig.rust_analyzer.setup {
-    cmd = { vim.fn.executable('ra-multipex') and 'ra-multiplex' or 'rust-analyzer' },
-    settings = {
+local settings = vim.tbl_deep_extend(
+    "keep",
+    require('lspsettings').settings,
+    {
         ['rust-analyzer'] = {
             checkOnSave = {
                 command = "clippy"
             },
             check = {
                 allTargets = true
-            }
-        },
-    },
-    on_attach = status.on_attach,
-    capabilities = capabilities
+            },
+        }
+    }
+)
+
+lspconfig.util.default_config = vim.tbl_deep_extend(
+    "force",
+    lspconfig.util.default_config,
+    { 
+        on_attach = status.on_attach,
+        capabilities = capabilities,
+        settings = settings
+    }
+)
+
+lspconfig.rust_analyzer.setup {
+    cmd = { vim.fn.executable('ra-multipex') and 'ra-multiplex' or 'rust-analyzer' }
 }
-lspconfig.clangd.setup {
-    on_attach = status.on_attach,
-    capabilities = capabilities
-}
-lspconfig.pylsp.setup {
-    on_attach = status.on_attach,
-    capabilities = capabilities,
-}
+lspconfig.clangd.setup {}
+lspconfig.pylsp.setup {}
 
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'

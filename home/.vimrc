@@ -13,6 +13,7 @@ set scrolloff=4 backspace=indent,eol,start
 set ignorecase smartcase
 set laststatus=2 noshowmode
 set nohidden
+set exrc
 filetype plugin indent on
 syntax on
 autocmd BufWritePost src.md silent !./render.sh

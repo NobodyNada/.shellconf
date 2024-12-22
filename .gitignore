@@ -1,6 +1,7 @@
 .*.swp
 /home/.vim/.netrwhist
 /home/.vim/plugged
+home/.vim/autoload/plug.vim.old
 /home/.vim/spell/
 
 /home/.config/fish/conf.d/host_*.fish
