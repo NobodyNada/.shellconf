@@ -30,6 +30,8 @@ tmap <C-w>; <C-w>:
 tmap <C-w><C-w> <C-w>w
 tmap <C-e> <C-w>:<C-u>WinResizerStartResize<cr>
 
+nnoremap <C-p> <C-i>
+
 imap <F13> <Nop>
 
 set incsearch nohlsearch
@@ -87,6 +89,9 @@ let g:pandoc#formatting#textwidth = 100
 let g:pandoc#formatting#mode = "h"
 
 let g:AutoPairsMapBS = 1
+let g:AutoPairsCompatibleMaps = 1
+let g:AutoPairsShortcutIgnore = ''
+let g:AutoPairsShortcutToggleMultilineClose = ''
 let g:rust_keep_autopairs_default = 1
 au Filetype rust,c,cpp inoremap ;; <End>;
 au Filetype rust,c,cpp imap {{ <End>{
