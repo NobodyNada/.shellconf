@@ -1,5 +1,5 @@
 local lspconfig = require('lspconfig')
-require('lspfuzzy').setup {}
+local fzf = require('fzf-lua')
 
 local signs = { Error = "❌", Warn = "⚠", Hint = "ℹ︎", Info = "ℹ︎" }
 
@@ -178,12 +178,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
     group = group,
     callback = function(env)
         local opts = { buffer = env.buf }
-        vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-        vim.keymap.set('n', 'gy', vim.lsp.buf.type_definition, opts)
-        vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-        vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-        vim.keymap.set('n', 'go', vim.lsp.buf.document_symbol)
+        vim.keymap.set('n', 'gD', fzf.lsp_declarations, opts)
+        vim.keymap.set('n', 'gd', fzf.lsp_definitions, opts)
+        vim.keymap.set('n', 'gy', fzf.lsp_typedefs, opts)
+        vim.keymap.set('n', 'gi', fzf.lsp_implementations, opts)
+        vim.keymap.set('n', 'gr', fzf.lsp_references, opts)
+        vim.keymap.set('n', 'go', fzf.lsp_document_symbols)
         vim.keymap.set('n', 'gs', function() vim.lsp.buf.workspace_symbol('') end)
         vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
         vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)

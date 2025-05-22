@@ -108,8 +108,7 @@ Plug 'maxbane/vim-asm_ca65'
 Plug 'LunarWatcher/auto-pairs'
 Plug 'alvan/vim-closetag'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'ojroques/nvim-lspfuzzy'
+Plug 'ibhagwan/fzf-lua'
 Plug 'simeji/winresizer'
 Plug 'joshdick/onedark.vim'
 Plug 'tpope/vim-fugitive'
@@ -346,9 +345,8 @@ if has_key(g:plugs, "coc.nvim")
 endif
 
 " fuzzy find files & buffers
-nnoremap <silent><nowait> <Leader>f :GFiles<cr>
-nnoremap <silent><nowait> <Leader>F :Files<cr>
-nnoremap <silent><nowait> <Leader>b :Buffers<cr>
+nnoremap <silent><nowait> <Leader>f :FzfLua git_files<cr>
+nnoremap <silent><nowait> <Leader>F :FzfLua files<cr>
 
 nnoremap <Leader>cr :CargoReload<cr>
 
