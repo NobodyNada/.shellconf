@@ -79,6 +79,7 @@ exists hub; and alias git=hub
 alias v=vi; set -x EDITOR vi
 exists vim or exists nvim; and begin; alias vi=vim; set -x EDITOR vim; end
 exists nvim; and begin; alias vim=nvim; set -x EDITOR nvim; end
+exists vim or exists nvim; and begin; set -x MANPAGER "$EDITOR +Man!"; end
 
 exists kitty; and [ "$TERM" = xterm-kitty ]; and not set -q SSH_TTY; and alias ssh="kitty +kitten ssh"
 alias icat="kitten icat"
