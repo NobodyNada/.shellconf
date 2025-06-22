@@ -1,5 +1,5 @@
 from kitty.boss import get_boss
-from kitty.fast_data_types import Screen, add_timer
+from kitty.fast_data_types import Screen, add_timer, wcwidth
 from kitty.tab_bar import (
     DrawData,
     ExtraData,
@@ -79,36 +79,47 @@ def _draw_tab(
     return end
 
 if sys.platform == "darwin":
-    nowplaying_cli = which("nowplaying-cli")
+    nowplaying_cli = which("media-control")
     nowplaying_process = None
     nowplaying_output = None
     def get_playback_status():
+        import json
         global nowplaying_cli, nowplaying_process, nowplaying_output
+
+        empty = {'title': None, 'artist': None, 'playbackRate': None}
+        if nowplaying_output is None:
+            nowplaying_output = empty
 
         if nowplaying_cli is not None:
             if nowplaying_process is None:
                 nowplaying_process = subprocess.Popen(
-                        [nowplaying_cli, "get", "title", "artist", "playbackRate"], 
-                        stdout=subprocess.PIPE)
+                        [nowplaying_cli, "stream"],
+                        stdout=subprocess.PIPE, encoding='utf-8')
 
-            if nowplaying_process.poll() is not None:
-                nowplaying_output, _ = nowplaying_process.communicate()
-                nowplaying_process = None
-                
-            if nowplaying_output is not None:
-                lines = nowplaying_output.decode('utf-8').split("\n")
-                if len(lines) != 4:
-                    return None
-                title, artist, playback_rate = lines[0], lines[1], lines[2]
-                if title == "null" and artist == "null" and playback_rate == "null":
-                    return None
+            while True:
+                import select
+                ready, _, _ = select.select([nowplaying_process.stdout], [], [], 0)
+                if len(ready) == 0:
+                    break
+                msg = json.loads(nowplaying_process.stdout.readline())
+                if msg["type"] == "data":
+                    if not msg["diff"]:
+                        nowplaying_output = empty
+                    data = msg["payload"]
+                    for key in nowplaying_output.keys():
+                        if data.get(key) is not None:
+                            nowplaying_output[key] = data[key]
 
-                icon = "⏵" if playback_rate == "1" else "⏸"
+            title, artist, playback_rate = nowplaying_output["title"], nowplaying_output["artist"], nowplaying_output["playbackRate"]
+            if title is None and artist is None and playback_rate is None:
+                return None
 
-                output = f"{icon} {title}"
-                if artist not in ["null", ""]:
-                    output += " - " + artist
-                return output
+            icon = "⏵" if playback_rate == "1" else "⏸"
+
+            output = f"{icon} {title}"
+            if artist not in ["null", ""]:
+                output += " - " + artist
+            return output
 
         return None
 elif sys.platform == "linux":
@@ -164,19 +175,20 @@ def draw_status(draw_data: DrawData, screen: Screen) -> int:
     characters = screen.columns - screen.cursor.x
     for cell in cells:
         (fg, bg, text) = cell
-        if len(text) < characters:
+        width = sum(map(lambda x: wcwidth(ord(x)), text))
+        if width < characters:
             cells_to_draw = [cell] + cells_to_draw
-            characters -= len(text)
+            characters -= width
         else:
             break
 
     screen.cursor.fg = default_bg
     screen.draw(' ' * (characters))
-    is_first = True
     for (fg, bg, text) in cells_to_draw:
         screen.cursor.fg = fg
         screen.cursor.bg = bg
         screen.draw(text)
+    return screen.cursor.x
 
 timer_id = None
 
