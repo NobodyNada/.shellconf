@@ -1,6 +1,15 @@
 local lspconfig = require('lspconfig')
 local fzf = require('fzf-lua')
 
+require('nvim-treesitter.configs').setup {
+    highlight = {
+        enable = true
+    },
+    indent = {
+        enable = true
+    }
+}
+
 local signs = { Error = "❌", Warn = "⚠", Hint = "ℹ︎", Info = "ℹ︎" }
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()

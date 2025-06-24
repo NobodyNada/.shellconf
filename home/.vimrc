@@ -7,6 +7,7 @@ let &titlestring = "%{expand('%:t') == 'mod.rs' ?
         \ (expand('%:h:t') . '/' . expand('%:t')) :
         \ expand('%:t')} %m"
 set shiftwidth=4 tabstop=4 softtabstop=4 expandtab autoindent smartindent title
+au BufNewFile,BufRead *.pdsc set filetype=xml
 au Filetype html,xml set shiftwidth=2 tabstop=2 softtabstop=2
 
 set scrolloff=4 backspace=indent,eol,start
