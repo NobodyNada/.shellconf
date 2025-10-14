@@ -1,5 +1,5 @@
 from kitty.boss import get_boss
-from kitty.fast_data_types import Screen, add_timer, wcwidth
+from kitty.fast_data_types import Screen, add_timer, wcwidth, wakeup_main_loop
 from kitty.tab_bar import (
     DrawData,
     ExtraData,
@@ -16,6 +16,7 @@ import sys
 def _periodic(timer_id):
     for tm in get_boss().all_tab_managers:
         tm.mark_tab_bar_dirty()
+    wakeup_main_loop()
 
 def _draw_tab(
     draw_data: DrawData,
@@ -204,7 +205,7 @@ def draw_tab(
 ) -> int:
     global timer_id
     if timer_id is None:
-        timer_id = add_timer(_periodic, 2.0, True)
+        timer_id = add_timer(_periodic, 30.0, True)
     if not (index == 1 and is_last):
         cursor_x = _draw_tab(draw_data, screen, tab, before, max_title_length, index, is_last, extra_data)
     if is_last:
