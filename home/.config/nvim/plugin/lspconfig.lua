@@ -31,7 +31,7 @@ status_config = {
 status.config(status_config)
 status.status = function(bufnr)
     bufnr = bufnr or 0
-    if vim.tbl_count(vim.lsp.buf_get_clients(bufnr)) == 0 then return '' end
+    if vim.tbl_count(vim.lsp.get_clients()) == 0 then return '' end
     local buf_diagnostics = status_config.diagnostics and require('lsp-status/diagnostics')(bufnr) or nil
     local only_hint = true
     local some_diagnostics = false
@@ -73,10 +73,9 @@ local settings = vim.tbl_deep_extend(
     require('lspsettings').settings,
     {
         ['rust-analyzer'] = {
-            checkOnSave = {
-                command = "clippy"
-            },
+            checkOnSave = true,
             check = {
+                command = "clippy",
                 allTargets = true
             },
         }
