@@ -1,4 +1,3 @@
-local lspconfig = require('lspconfig')
 local fzf = require('fzf-lua')
 
 require('nvim-treesitter.configs').setup {
@@ -31,7 +30,7 @@ status_config = {
 status.config(status_config)
 status.status = function(bufnr)
     bufnr = bufnr or 0
-    if vim.tbl_count(vim.lsp.get_clients()) == 0 then return '' end
+    if vim.tbl_count(vim.lsp.get_clients({bufnr = bufnr})) == 0 then return '' end
     local buf_diagnostics = status_config.diagnostics and require('lsp-status/diagnostics')(bufnr) or nil
     local only_hint = true
     local some_diagnostics = false
@@ -75,28 +74,24 @@ local settings = vim.tbl_deep_extend(
         ['rust-analyzer'] = {
             checkOnSave = true,
             check = {
-                command = "clippy",
-                allTargets = true
+                allTargets = true,
+                command = "clippy"
             },
         }
     }
 )
 
-lspconfig.util.default_config = vim.tbl_deep_extend(
-    "force",
-    lspconfig.util.default_config,
-    { 
-        on_attach = status.on_attach,
-        capabilities = capabilities,
-        settings = settings
-    }
-)
+vim.lsp.config('*', {
+    on_attach = status.on_attach,
+    capabilities = capabilities,
+    settings = settings
+})
+vim.lsp.config('rust-analyzer', {
+    cmd = { vim.fn.executable('ra-multipex') ~= 0 and 'ra-multiplex' or 'rust-analyzer' },
+    filetypes = {'rust'}
+})
 
-lspconfig.rust_analyzer.setup {
-    cmd = { vim.fn.executable('ra-multipex') and 'ra-multiplex' or 'rust-analyzer' }
-}
-lspconfig.clangd.setup {}
-lspconfig.pylsp.setup {}
+vim.lsp.enable({'rust-analyzer', 'clangd', 'pylsp'})
 
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
