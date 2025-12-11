@@ -87,7 +87,7 @@ vim.lsp.config('*', {
     settings = settings
 })
 vim.lsp.config('rust-analyzer', {
-    cmd = { vim.fn.executable('ra-multiplex') ~= 0 and 'ra-multiplex' or 'rust-analyzer' },
+    cmd = { vim.fn.executable('lspmux') ~= 0 and 'lspmux' or 'rust-analyzer' },
     filetypes = {'rust'}
 })
 
