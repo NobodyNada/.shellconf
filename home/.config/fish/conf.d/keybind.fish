@@ -1,7 +1,7 @@
 set fish_greeting
 function key_bindings
-    fish_vi_key_bindings insert
-    fish_default_key_bindings --no-erase -M insert
+    fish_default_key_bindings -M insert
+    fish_vi_key_bindings --no-erase insert
     bind \ec fzf_jump_directory
     bind -M insert \ec fzf_jump_directory
     bind \ek prevd
