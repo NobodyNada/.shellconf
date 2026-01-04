@@ -1,5 +1,5 @@
 function fish_right_prompt
     set_color -d
-    echo -n (date '+%H:%M')
+    echo -n (date '+%-I:%M')
     set_color normal
 end
