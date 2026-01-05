@@ -1,14 +1,5 @@
 local fzf = require('fzf-lua')
 
-require('nvim-treesitter.configs').setup {
-    highlight = {
-        enable = true
-    },
-    indent = {
-        enable = true
-    }
-}
-
 local signs = { Error = "❌", Warn = "⚠", Hint = "ℹ︎", Info = "ℹ︎" }
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
@@ -187,7 +178,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set('n', 'gi', fzf.lsp_implementations, opts)
         vim.keymap.set('n', 'gr', fzf.lsp_references, opts)
         vim.keymap.set('n', 'go', fzf.lsp_document_symbols)
-        vim.keymap.set('n', 'gs', function() vim.lsp.buf.workspace_symbol('') end)
+        vim.keymap.set('n', 'gs', fzf.lsp_live_workspace_symbols)
         vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
         vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
         vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
@@ -212,9 +203,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all" (the listed parsers MUST always be installed)
-  ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline",
-    "rust"
-  },
+  ensure_installed = "all",
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
@@ -224,7 +213,7 @@ require'nvim-treesitter.configs'.setup {
   auto_install = true,
 
   -- List of parsers to ignore installing (or "all")
-  ignore_install = { },
+  ignore_install = { "ipkg" },
 
   ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
   -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
@@ -244,6 +233,9 @@ require'nvim-treesitter.configs'.setup {
     -- Using this option may slow down your editor, and you may see some duplicate highlights.
     -- Instead of true it can also be a list of languages
     additional_vim_regex_highlighting = false,
+  },
+  indent = {
+      enable = true,
   },
   incremental_selection = {
     enable = true,

@@ -127,7 +127,7 @@ Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'tpope/vim-abolish'
 Plug 'tikhomirov/vim-glsl'
 Plug 'andweeb/presence.nvim'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate', 'branch': 'master'}
 call plug#end()
 
 " mac terminal supports bold/italics, but doesn't declare it
