@@ -86,6 +86,8 @@ alias icat="kitten icat"
 
 alias pwninit="pwninit --template-path ~/.shellconf/pwninit-template.py && mv -n solve.py e.py"
 
+alias samply="BROWSER=firefox command samply"
+
 set -x RUST_BACKTRACE 1
 fish_add_path /usr/local/sbin
 
