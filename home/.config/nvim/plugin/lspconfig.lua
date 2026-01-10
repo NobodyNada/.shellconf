@@ -26,6 +26,9 @@ vim.lsp.config('rust-analyzer', {
     cmd = { vim.fn.executable('lspmux') ~= 0 and 'lspmux' or 'rust-analyzer' },
     filetypes = {'rust'}
 })
+vim.lsp.config('clangd', {
+    filetypes = {"c", "cpp", "cc", "arduino"}
+})
 
 vim.lsp.enable({'rust-analyzer', 'clangd', 'pylsp'})
 
