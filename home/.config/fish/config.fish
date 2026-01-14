@@ -100,4 +100,6 @@ abbr -a fk --function last_history_item
 abbr -a c cargo
 abbr -a g git
 
+alias clif="RUSTFLAGS='-Zcodegen-backend=cranelift -Zthreads=8' cargo +nightly"
+
 exists fzf_configure_bindings && fzf_configure_bindings --directory=\cf --git_status=\cs
