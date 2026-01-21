@@ -23,7 +23,7 @@ vim.lsp.config('*', {
     settings = settings
 })
 vim.lsp.config('rust-analyzer', {
-    cmd = { vim.fn.executable('lspmux') ~= 0 and 'lspmux' or 'rust-analyzer' },
+    cmd = { (vim.fn.expand("%:t") ~= "build.rs" and vim.fn.executable('lspmux') ~= 0) and 'lspmux' or 'rust-analyzer' },
     filetypes = {'rust'}
 })
 vim.lsp.config('clangd', {
