@@ -9,12 +9,14 @@ let &titlestring = "%{expand('%:t') == 'mod.rs' ?
 set shiftwidth=4 tabstop=4 softtabstop=4 expandtab autoindent smartindent title
 au BufNewFile,BufRead *.pdsc set filetype=xml
 au Filetype html,xml,lua set shiftwidth=2 tabstop=2 softtabstop=2
+au Filetype verilog,systemverilog,vhdl set noexpandtab
 
 set scrolloff=4 backspace=indent,eol,start
 set ignorecase smartcase
 set laststatus=2 noshowmode
 set nohidden
 set exrc
+set list
 filetype plugin indent on
 syntax on
 autocmd BufWritePost src.md silent !./render.sh
