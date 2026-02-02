@@ -14,6 +14,14 @@ local settings = vim.tbl_deep_extend(
                 allTargets = true,
                 command = "clippy"
             },
+            cargo = {
+                buildScripts = {
+                    enable = true
+                },
+                procMacro = {
+                    enable = true
+                }
+            }
         }
     }
 )
@@ -119,18 +127,27 @@ vim.diagnostic.config {
       [vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
     }
   },
+  jump = {
+      severity = { min = vim.diagnostic.severity.WARN },
+      on_jump = function(diagnostic, buffer) vim.diagnostic.open_float({ focus = false, scope = 'cursor' }) end
+  },
   virtual_text = true,
 }
 
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
-vim.keymap.set('n', '<Plug>(diagnostic-goto-prev)', vim.diagnostic.goto_prev)
-vim.keymap.set('n', '<Plug>(diagnostic-goto-next)', vim.diagnostic.goto_next)
+vim.keymap.set('n', '<Plug>(diagnostic-goto-prev)', function() vim.diagnostic.goto_prev({ severity = { min = vim.diagnostic.severity.WARN } }) end)
+vim.keymap.set('n', '<Plug>(diagnostic-goto-next)', function() vim.diagnostic.goto_next({ severity = { min = vim.diagnostic.severity.WARN } }) end)
+
+fzf.setup {
+  diagnostics = { severity_limit = vim.diagnostic.severity.INFO }
+}
 
 group = vim.api.nvim_create_augroup('UserLspConfig', {})
 vim.api.nvim_create_autocmd('LspAttach', {
     group = group,
     callback = function(env)
         local opts = { buffer = env.buf }
+        vim.keymap.set('n', 'ge', fzf.diagnostics_document, opts)
+        vim.keymap.set('n', 'gE', fzf.diagnostics_workspace, opts)
         vim.keymap.set('n', 'gD', fzf.lsp_declarations, opts)
         vim.keymap.set('n', 'gd', fzf.lsp_definitions, opts)
         vim.keymap.set('n', 'gy', fzf.lsp_typedefs, opts)
