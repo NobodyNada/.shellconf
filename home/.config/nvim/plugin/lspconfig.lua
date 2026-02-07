@@ -141,6 +141,15 @@ fzf.setup {
   diagnostics = { severity_limit = vim.diagnostic.severity.INFO }
 }
 
+function reload_workspace()
+  vim.lsp.buf_request(0, 'rust-analyzer/reloadWorkspace', nil,
+    function(err, _, result, _)
+      if err then error(tostring(err)) end
+      vim.notify("Cargo workspace reloaded")
+    end
+  )
+end
+
 group = vim.api.nvim_create_augroup('UserLspConfig', {})
 vim.api.nvim_create_autocmd('LspAttach', {
     group = group,
@@ -162,6 +171,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set('n', '<leader>g', function()
                 vim.lsp.buf.code_action({ context = { only = {'quickfix' } }, apply = true})
             end, opts)
+        vim.keymap.set('n', '<leader>cr', reload_workspace, opts)
         vim.api.nvim_create_autocmd('BufWritePre', { pattern = {'*.rs'}, group = group, callback = function() vim.lsp.buf.format() end })
 
         local client = vim.lsp.get_client_by_id(env.data.client_id)

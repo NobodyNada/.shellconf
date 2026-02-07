@@ -246,8 +246,6 @@ set updatetime=300
 nnoremap <silent><nowait> <Leader>f :FzfLua git_files<cr>
 nnoremap <silent><nowait> <Leader>F :FzfLua files<cr>
 
-nnoremap <Leader>cr :CargoReload<cr>
-
 " use n/N to repeat last jump/goto action
 let s:jump_next = "n"
 let s:jump_prev = "N"
@@ -290,6 +288,7 @@ noremap <expr> ]s JumpNext(']s', '[s')
 noremap <expr> [s JumpPrev(']s', '[s')
 
 inoremap ;<CR> <End>;<CR>
+inoremap ;; <End>;
 
 let g:presence_neovim_image_text = 'Neovim'
 
