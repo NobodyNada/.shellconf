@@ -108,7 +108,9 @@ if has('nvim')
     Plug 'hrsh7th/cmp-cmdline'
     Plug 'L3MON4D3/LuaSnip', {'tag': 'v1.*', 'do': 'make install_jsregexp'}
     Plug 'nvim-lualine/lualine.nvim'
-    Plug 'andweeb/presence.nvim'
+    if empty($WORK)
+        Plug 'andweeb/presence.nvim'
+    end
     Plug 'airblade/vim-gitgutter'
 else
     Plug 'itchyny/lightline.vim'
@@ -118,7 +120,6 @@ Plug 'rust-lang/rust.vim'
 Plug 'maxbane/vim-asm_ca65'
 Plug 'LunarWatcher/auto-pairs'
 Plug 'alvan/vim-closetag'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'ibhagwan/fzf-lua'
 Plug 'simeji/winresizer'
 Plug 'joshdick/onedark.vim'
@@ -130,6 +131,9 @@ Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'tpope/vim-abolish'
 Plug 'tikhomirov/vim-glsl'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate', 'branch': 'master'}
+if !empty($WORK)
+    Plug 'github/copilot.vim'
+end
 call plug#end()
 
 " mac terminal supports bold/italics, but doesn't declare it
@@ -245,6 +249,8 @@ set updatetime=300
 " fuzzy find files & buffers
 nnoremap <silent><nowait> <Leader>f :FzfLua git_files<cr>
 nnoremap <silent><nowait> <Leader>F :FzfLua files<cr>
+nnoremap <silent><nowait> <Leader>o :FzfLua oldfiles<cr>
+nnoremap <silent><nowait> <Leader>s :FzfLua live_grep<cr>
 
 " use n/N to repeat last jump/goto action
 let s:jump_next = "n"
@@ -298,3 +304,8 @@ call autopairs#AutoPairsAddPair({
             \ "open": ".proc",
             \ "close": ".endproc",
             \ })
+
+if !empty($WORK)
+    imap <silent><script><expr> <S-CR> copilot#Accept("")
+    let g:copilot_no_tab_map = v:true
+end

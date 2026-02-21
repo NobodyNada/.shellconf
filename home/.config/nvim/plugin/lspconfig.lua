@@ -138,7 +138,22 @@ vim.keymap.set('n', '<Plug>(diagnostic-goto-prev)', function() vim.diagnostic.go
 vim.keymap.set('n', '<Plug>(diagnostic-goto-next)', function() vim.diagnostic.goto_next({ severity = { min = vim.diagnostic.severity.WARN } }) end)
 
 fzf.setup {
-  diagnostics = { severity_limit = vim.diagnostic.severity.INFO }
+  diagnostics = { severity_limit = vim.diagnostic.severity.INFO },
+  grep = {
+    rg_opts = "--line-number --column --no-heading --color=always --smart-case --max-columns=4096 --trim -e",
+    fzf_opts = {
+      ["--delimiter"] = "[\\):]",
+      ['--with-nth'] = '1,2,4',
+      ['--history'] = vim.fn.stdpath("data") .. '/fzf-lua-grep-history',
+    },
+    with_nth = {1, 4},
+  },
+  keymap = {
+    fzf = {
+      ["alt-k"] = "previous-history",
+      ["alt-j"] = "next-history",
+    }
+  }
 }
 
 function reload_workspace()

@@ -102,4 +102,16 @@ abbr -a g git
 
 alias clif="RUSTFLAGS='-Zcodegen-backend=cranelift -Zthreads=8' cargo +nightly"
 
+function G
+    nvim -c ":G $argv" -c :only
+end
+
+function git
+    if set -q argv[1]
+        command git $argv
+    else
+        G
+    end
+end
+
 exists fzf_configure_bindings && fzf_configure_bindings --directory=\cf --git_status=\cs
