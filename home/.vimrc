@@ -130,7 +130,7 @@ Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'tpope/vim-abolish'
 Plug 'tikhomirov/vim-glsl'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate', 'branch': 'master'}
+Plug 'romus204/tree-sitter-manager.nvim'
 if !empty($WORK)
     Plug 'github/copilot.vim'
 end
@@ -308,4 +308,17 @@ call autopairs#AutoPairsAddPair({
 if !empty($WORK)
     imap <silent><script><expr> <S-CR> copilot#Accept("")
     let g:copilot_no_tab_map = v:true
+
+    function! CopilotCLI()
+        let prompt = input({"prompt": "?", "cancelreturn": v:null})
+        if prompt is v:null
+            return
+        endif
+        let position = "@" . shellescape(expand("%")) . ":" . getcurpos()[1] . ":" . getcurpos()[2]
+
+        call system("kitty @ launch --cwd=current fish -lc \"exec copilot --model claude-haiku-4.5 " .
+                    \ "-i '" . position . ": '" . shellescape(prompt) . "\"")
+    endfunction
+
+    nmap ? :call CopilotCLI()<CR>
 end

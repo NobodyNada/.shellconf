@@ -6,7 +6,7 @@ local M = {
 }
 
 function M.extend(settings)
-    M.settings = vim.tbl_deep_extend("force", M.settings, settings)
+    M.settings = vim.tbl_deep_extend("keep", M.settings, settings)
 end
 
 return M

@@ -2,12 +2,14 @@ local fzf = require('fzf-lua')
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
+local rust_analyzer = vim.fn.executable('lspmux') ~= 0 and { 'sh', '-c', 'exec lspmux client --server-path $(rustup +nightly which rust-analyzer)' } or { 'rust-analyzer' }
+-- local rust_analyzer = { '/Users/keljonathan/code/rust-analyzer/target/release/rust-analyzer' }
 local settings = vim.tbl_deep_extend(
     "keep",
     require('lspsettings').settings,
     {
         ['rust-analyzer'] = {
-            cmd = { vim.fn.executable('lspmux') ~= 0 and 'lspmux' or 'rust-analyzer' },
+            cmd = rust_analyzer,
             filetypes = {'rust'},
             checkOnSave = true,
             check = {
@@ -31,7 +33,7 @@ vim.lsp.config('*', {
     settings = settings
 })
 vim.lsp.config('rust-analyzer', {
-    cmd = { (vim.fn.expand("%:t") ~= "build.rs" and vim.fn.executable('lspmux') ~= 0) and 'lspmux' or 'rust-analyzer' },
+    cmd = (vim.fn.expand("%:t") == "build.rs") and { 'rust-analyzer',  '+nightly' } or rust_analyzer,
     filetypes = {'rust'}
 })
 vim.lsp.config('clangd', {
@@ -157,12 +159,9 @@ fzf.setup {
 }
 
 function reload_workspace()
-  vim.lsp.buf_request(0, 'rust-analyzer/reloadWorkspace', nil,
-    function(err, _, result, _)
-      if err then error(tostring(err)) end
-      vim.notify("Cargo workspace reloaded")
-    end
-  )
+  if vim.system({"lspmux", "reload"}):wait().code == 0 then
+    vim.notify("Workspace reloaded", vim.log.levels.INFO)
+  end
 end
 
 group = vim.api.nvim_create_augroup('UserLspConfig', {})
@@ -202,51 +201,19 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
 })
 
-require'nvim-treesitter.configs'.setup {
-  -- A list of parser names, or "all" (the listed parsers MUST always be installed)
-  ensure_installed = "all",
+vim.keymap.set({ 'n', 'x' }, '<Tab>', function() require('vim.treesitter._select').select_parent(1) end)
+vim.keymap.set({ 'n', 'x' }, '<S-Tab>', function() require('vim.treesitter._select').select_child(1) end)
 
-  -- Install parsers synchronously (only applied to `ensure_installed`)
-  sync_install = false,
-
-  -- Automatically install missing parsers when entering buffer
-  -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-  auto_install = true,
-
-  -- List of parsers to ignore installing (or "all")
-  ignore_install = { "ipkg" },
-
-  ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
-  -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
-
-  highlight = {
-    enable = true,
-
-    -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
-    -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
-    -- the name of the parser)
-    -- list of language that will be disabled
-    disable = {},
-    -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
-
-    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-    -- Using this option may slow down your editor, and you may see some duplicate highlights.
-    -- Instead of true it can also be a list of languages
-    additional_vim_regex_highlighting = false,
-  },
-  indent = {
-      enable = true,
-  },
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection = "<Tab>", -- set to `false` to disable one of the mappings
-      node_incremental = "<Tab>",
-      node_decremental = "<S-Tab>",
-    },
-  },
-}
+require("tree-sitter-manager").setup({
+    -- Default Options
+    -- ensure_installed = {}, -- list of parsers to install at the start of a neovim session
+    -- border = nil, -- border style for the window (e.g. "rounded", "single"), if nil, use the default border style defined by 'vim.o.winborder'. See :h 'winborder' for more info.
+    auto_install = true, -- if enabled, install missing parsers when editing a new file
+    -- highlight = true, -- treesitter highlighting is enabled by default
+    -- languages = {}, -- override or add new parser sources
+    -- parser_dir = vim.fn.stdpath("data") .. "/site/parser",
+    -- query_dir = vim.fn.stdpath("data") .. "/site/queries",
+})
 
 -- local llm = require('llm')
 -- 
