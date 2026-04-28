@@ -116,7 +116,7 @@ else
     Plug 'itchyny/lightline.vim'
 end
 Plug 'dag/vim-fish'
-Plug 'rust-lang/rust.vim'
+"Plug 'rust-lang/rust.vim'
 Plug 'maxbane/vim-asm_ca65'
 Plug 'LunarWatcher/auto-pairs'
 Plug 'alvan/vim-closetag'
