@@ -68,6 +68,8 @@ exists swiftenv; and source (swiftenv init - | psub)
 set -x PATH /usr/local/opt/perl/bin /opt/homebrew/opt/perl/bin $PATH
 set -x PATH $PATH $HOME/go/bin
 
+set -x HOMEBREW_NO_ENV_HINTS 1
+
 set -x PATH $HOME/.cargo/bin $PATH
 [ $UNAME = Darwin ]; and set -x PATH /opt/homebrew/opt/rustup/bin $PATH
 command -q rvm; and rvm default
