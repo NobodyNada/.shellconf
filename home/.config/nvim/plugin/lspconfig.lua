@@ -178,7 +178,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set('n', 'gr', fzf.lsp_references, opts)
         vim.keymap.set('n', 'go', fzf.lsp_document_symbols)
         vim.keymap.set('n', 'gs', fzf.lsp_live_workspace_symbols)
-        vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
         vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
         vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
         vim.keymap.set({'n', 'v'}, '<leader>d', vim.lsp.buf.code_action, opts)

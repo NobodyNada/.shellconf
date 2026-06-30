@@ -10,6 +10,7 @@ set shiftwidth=4 tabstop=4 softtabstop=4 expandtab autoindent smartindent title
 au BufNewFile,BufRead *.pdsc set filetype=xml
 au Filetype html,xml,lua set shiftwidth=2 tabstop=2 softtabstop=2
 au Filetype verilog,systemverilog,vhdl set noexpandtab
+au Filetype man nnoremap K <C-]>
 
 set scrolloff=4 backspace=indent,eol,start
 set ignorecase smartcase
